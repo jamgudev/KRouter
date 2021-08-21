@@ -1,0 +1,3 @@
+include ':krouter-api'
+include ':app'
+rootProject.name = "KRouter"
