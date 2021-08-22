@@ -10,7 +10,9 @@ import com.jamgu.krouter.MainActivity.Companion.DOUBLE
 import com.jamgu.krouter.MainActivity.Companion.INT
 import com.jamgu.krouter.MainActivity.Companion.STRING
 import com.jamgu.krouter.MainActivity.Companion.FLOAT
+import com.jamgu.krouterannotation.KRouter
 
+@KRouter(value = ["test_activity"])
 class TestActivity : AppCompatActivity() {
 
     companion object {

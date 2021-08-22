@@ -18,6 +18,17 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url project.MAVEN_URL
+        }
+        maven {
+            url project.MAVEN_URL_DEBUG
+        }
+        maven {
+            url project.MAVEN_URL_RELEASE
+        }
+        maven { url "https://www.jitpack.io" }
+        mavenCentral()
     }
 }
 

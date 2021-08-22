@@ -3,10 +3,6 @@ plugins {
     id 'kotlin-android'
 }
 
-ext {
-    kotlin_version = "1.4.31"
-}
-
 android {
     compileSdkVersion Integer.parseInt(project.COMPILE_SDK_VERSION)
     buildToolsVersion project.BUILD_TOOLS_VERSION
@@ -33,4 +29,5 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api project(":krouter-annotation")
 }

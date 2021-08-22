@@ -8,7 +8,7 @@ import com.jamgu.krouterapi.constants.KROUTER_SCHEME_NAME
 /**
  * Created by jamgu on 2021/08/21
  */
-open class RouterUriBuilder
+open class KRouterUriBuilder
     @JvmOverloads constructor(scheme: String = KROUTER_SCHEME_NAME) {
 
     companion object {
@@ -23,7 +23,7 @@ open class RouterUriBuilder
         this.builder.scheme(scheme)
     }
 
-    fun appendAuthority(authority: String?): RouterUriBuilder {
+    fun appendAuthority(authority: String?): KRouterUriBuilder {
         if (!TextUtils.isEmpty(authority)) {
             hasAuthority = true
             // The part after the routing question mark is out of scope
@@ -34,7 +34,7 @@ open class RouterUriBuilder
         return this
     }
 
-    fun appendPath(path: String?): RouterUriBuilder {
+    fun appendPath(path: String?): KRouterUriBuilder {
         path?.split("/")?.forEach {
             if (hasAuthority) {
                 this.builder.appendPath(it)
@@ -45,25 +45,25 @@ open class RouterUriBuilder
         return this
     }
 
-    fun with(key: String, value: Byte?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Byte?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: Short?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Short?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: Char?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Char?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: Boolean?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Boolean?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: Double?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Double?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: Float?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Float?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: Long?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Long?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: Int?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: Int?): KRouterUriBuilder = withAny(key, value)
 
-    fun with(key: String, value: CharSequence?): RouterUriBuilder = withAny(key, value)
+    fun with(key: String, value: CharSequence?): KRouterUriBuilder = withAny(key, value)
 
-    private fun withAny(key: String, value: Any?): RouterUriBuilder {
+    private fun withAny(key: String, value: Any?): KRouterUriBuilder {
         if (value == null) {
             Log.d(TAG, "value is null, ignore this key.")
         }

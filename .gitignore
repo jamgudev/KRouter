@@ -66,10 +66,5 @@ fastlane/readme.md
 # OS X
 .DS_Store
 
-# external
-external/GameHelperComponents
-external/GameHelperModules
-external/jproperties.pyc
-
 # flutter
 ghp_flutter_module/

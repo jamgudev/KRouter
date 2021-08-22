@@ -13,9 +13,9 @@ import java.lang.RuntimeException
 /**
  * Created by jamgu on 2021/08/21
  */
-object KRouter {
+object KRouters {
 
-    private const val TAG = "Router"
+    private const val TAG = "KRouter"
 
     private val sMapping = ArrayList<Mapping>()
 

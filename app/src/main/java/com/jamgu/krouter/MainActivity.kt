@@ -5,11 +5,13 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.jamgu.krouterapi.RouterUriBuilder
+import com.jamgu.krouterannotation.KRouter
+import com.jamgu.krouterapi.KRouterUriBuilder
 import com.jamgu.krouterapi.router.ParamTypes
-import com.jamgu.krouterapi.router.KRouter
+import com.jamgu.krouterapi.router.KRouters
 import com.jamgu.krouterapi.router.IRouterCallback
 
+@KRouter(value = ["main_activty"], intParams = [""])
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         const val FLOAT = "YEAR"
         const val DOUBLE = "MONEY"
         const val CHAR = "CHAR"
+        const val SHORT = "SHORT"
+        const val BYTE = "BYTE"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +37,14 @@ class MainActivity : AppCompatActivity() {
         paramTypes.floatExtra = arrayOf(FLOAT)
         paramTypes.doubleExtra = arrayOf(DOUBLE)
         paramTypes.charExtra = arrayOf(CHAR)
-        KRouter.mapActivity("test_activity", TestActivity::class.java, paramTypes)
+        paramTypes.shortExtra = arrayOf(SHORT)
+        paramTypes.byteExtra = arrayOf(BYTE)
+        KRouters.mapActivity("test_activity", TestActivity::class.java, paramTypes)
+//        KRouters.mapActivity("test2_activity", Test2Activity::class.java, paramTypes)
 
 
-        KRouter.open(this, RouterUriBuilder("jamgu")
-                .appendAuthority("test_activity")
+        KRouters.open(this, KRouterUriBuilder("jamgu")
+                .appendAuthority("test2_activity")
                 .with(INT, "28692")
                 .with(BOOLEAN, true)
                 .with(LONG, "100001")
@@ -45,6 +52,8 @@ class MainActivity : AppCompatActivity() {
                 .with(FLOAT, 2016.0)
                 .with(DOUBLE, 16.toDouble())
                 .with(CHAR, 'C')
+                .with(SHORT, 44.toShort())
+                .with(BYTE, "4")
                 .build(), object: IRouterCallback {
             override fun beforeOpen(context: Context, uri: Uri): Boolean {
 

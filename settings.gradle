@@ -1,3 +1,5 @@
 include ':krouter-api'
+include ':krouter-annotation'
+include ':krouter-compiler'
 include ':app'
 rootProject.name = "KRouter"
