@@ -1,3 +1,4 @@
+include ':krouter-plugin'
 include ':krouter-api'
 include ':krouter-annotation'
 include ':krouter-compiler'

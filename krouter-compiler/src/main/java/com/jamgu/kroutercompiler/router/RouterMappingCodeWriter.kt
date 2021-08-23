@@ -2,6 +2,7 @@ package com.jamgu.kroutercompiler.router
 
 import com.grosner.kpoet.`public final class`
 import com.grosner.kpoet.`public static`
+import com.grosner.kpoet.implements
 import com.grosner.kpoet.javadoc
 import com.grosner.kpoet.param
 import com.jamgu.kroutercompiler.utils.ClassNameConstants
@@ -34,6 +35,7 @@ internal class RouterMappingCodeWriter(
         val classFileName = GENERATED_CLASS_NAME_PREFIX
         val typeSpec = `public final class`(classFileName) {
             javadoc("This is generated code, please do not modify. \n")
+            implements(ClassNameConstants.INTERFACES_CLASS)
 
             `public static`(TypeName.VOID, "map", param(ANDROID_CONTEXT, "context")) {
 

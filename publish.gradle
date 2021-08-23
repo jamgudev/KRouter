@@ -1,0 +1,68 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+Properties properties = new Properties()
+properties.load(rootProject.file('local.properties').newDataInputStream())
+
+def ossrhUsername = properties.getProperty("ossrhUsername")
+def ossrhPassword = properties.getProperty("ossrhPassword")
+
+def getPackage() {
+    return hasProperty("POM_PACKAGING") ? POM_PACKAGING : "aar"
+}
+
+def isPublishToLocal = hasProperty("PUBLISH_TO_LOCAL") ?
+        PUBLISH_TO_LOCAL : Boolean.parseBoolean(rootProject.PUBLISH_TO_LOCAL)
+
+//签名
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = POM_GROUP_ID
+            pom.artifactId = POM_ARTIFACT_ID
+            pom.version = POM_VERSION
+
+            if (isPublishToLocal) {
+                repository(url: rootProject.ext.mavenLocalUrl)
+            } else {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: MAVEN_THIRD_PARTY) {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: MAVEN_SNAPSHOT) {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                pom.project {
+                    name POM_NAME
+                    packaging getPackage()
+                    description POM_DESCRIPTION
+                    url 'https://github.com/jamgudev'
+
+                    licenses {
+                        license {
+                            name 'The Apache License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'jamgu'
+                            name 'jamgu'
+                            email '826630153@qq.com'
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
