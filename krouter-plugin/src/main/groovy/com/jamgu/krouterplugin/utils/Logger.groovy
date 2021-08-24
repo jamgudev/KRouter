@@ -5,12 +5,14 @@ import org.gradle.api.Project
 class Logger {
     static org.gradle.api.logging.Logger logger
 
+    static boolean isLogEnable = false
+
     static void make(Project project) {
         logger = project.getLogger()
     }
 
     static void i(String info) {
-        if (null != info && null != logger) {
+        if (null != info && null != logger && isLogEnable) {
             System.out.println("KRouter::Register info -=> " + info)
         }
     }
@@ -22,7 +24,7 @@ class Logger {
     }
 
     static void w(String warning) {
-        if (null != warning && null != logger) {
+        if (null != warning && null != logger && isLogEnable) {
             System.out.println("KRouter::Register warn -=> " + warning)
         }
     }

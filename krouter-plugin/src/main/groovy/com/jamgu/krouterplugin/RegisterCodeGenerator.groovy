@@ -114,7 +114,7 @@ class RegisterCodeGenerator {
             // generate code before return
             if ((opcode >= Opcodes.IRETURN && opcode <= Opcodes.RETURN)) {
                 extension.classList.each { owner ->
-                    mv.visitVarInsn(Opcodes.ALOAD, 0);
+                    mv.visitVarInsn(Opcodes.ALOAD, 0)
                     //name = name.replaceAll("/", ".")
                     mv.visitMethodInsn(Opcodes.INVOKESTATIC, owner, ScanSetting.REGISTER_METHOD_NAME, "(Landroid/content/Context;)V", false)
 
