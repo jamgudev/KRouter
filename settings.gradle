@@ -1,5 +1,7 @@
+include ':test_javamodule'
+include ':test_androidmodule'
 include ':krouter-plugin'
-include ':krouter-api'
+include ':krouter-core'
 include ':krouter-annotation'
 include ':krouter-compiler'
 include ':app'

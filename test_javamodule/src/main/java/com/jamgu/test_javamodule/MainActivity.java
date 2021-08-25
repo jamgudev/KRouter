@@ -1,15 +1,15 @@
-package com.jamgu.krouter;
+package com.jamgu.test_javamodule;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jamgu.krouter.annotation.KRouter;
 
-@KRouter(value = "test3_activity")
-public class Test3Activity extends AppCompatActivity {
+@KRouter("mass")
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test3);
+        setContentView(R.layout.activity_main);
     }
 }

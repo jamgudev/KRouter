@@ -2,14 +2,14 @@ package com.jamgu.krouter
 
 import android.content.Context
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.jamgu.krouterannotation.KRouter
-import com.jamgu.krouterapi.KRouterUriBuilder
-import com.jamgu.krouterapi.router.ParamTypes
-import com.jamgu.krouterapi.router.KRouters
-import com.jamgu.krouterapi.router.IRouterCallback
+import androidx.appcompat.app.AppCompatActivity
+import com.jamgu.krouter.annotation.KRouter
+import com.jamgu.krouter.core.KRouterUriBuilder
+import com.jamgu.krouter.core.router.IRouterCallback
+import com.jamgu.krouter.core.router.KRouters
+import com.jamgu.krouter.core.router.ParamTypes
 
 @KRouter(value = ["main_activty"], intParams = [""])
 class MainActivity : AppCompatActivity() {
@@ -39,12 +39,12 @@ class MainActivity : AppCompatActivity() {
         paramTypes.charExtra = arrayOf(CHAR)
         paramTypes.shortExtra = arrayOf(SHORT)
         paramTypes.byteExtra = arrayOf(BYTE)
-        KRouters.mapActivity("test_activity", TestActivity::class.java, paramTypes)
+//        KRouters.mapActivity("test_activity", TestActivity::class.java, paramTypes)
 //        KRouters.mapActivity("test2_activity", Test2Activity::class.java, paramTypes)
 
 
         KRouters.open(this, KRouterUriBuilder("jamgu")
-                .appendAuthority("test2_activity")
+                .appendAuthority("other_module_activity")
                 .with(INT, "28692")
                 .with(BOOLEAN, true)
                 .with(LONG, "100001")

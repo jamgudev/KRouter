@@ -9,10 +9,10 @@ import static com.jamgu.krouter.MainActivity.INT;
 import static com.jamgu.krouter.MainActivity.LONG;
 import static com.jamgu.krouter.MainActivity.SHORT;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.jamgu.krouterannotation.KRouter;
-import com.jamgu.krouterapi.router.ParamTypes;
+import androidx.appcompat.app.AppCompatActivity;
+import com.jamgu.krouter.annotation.KRouter;
+import com.jamgu.krouter.core.router.ParamTypes;
 
 @KRouter(value = "test2_activity", intParams = {"userId", "gameId"}, stringParams = {"user_name"},
         doubleParams = {"double_param"}, shortParams = {"short_param"}, byteParams = {"byte_param"},
