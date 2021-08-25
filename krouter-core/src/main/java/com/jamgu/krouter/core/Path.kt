@@ -1,8 +1,8 @@
-package com.jamgu.krouterapi
+package com.jamgu.krouter.core
 
 import android.net.Uri
 import android.text.TextUtils
-import com.jamgu.krouterapi.constants.KROUTER_SCHEME_NAME
+import com.jamgu.krouter.core.constants.KROUTER_SCHEME_NAME
 import java.util.Locale
 
 /**
@@ -26,7 +26,7 @@ class Path(
                 urlPath = urlPath.subSequence(0, urlPath.length - 1).toString()
             }
 
-            parseUrl(path, fixUri.host + urlPath)
+            parseUrl(path, fixUri?.host + urlPath)
             return path
         }
 

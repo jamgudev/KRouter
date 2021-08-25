@@ -1,4 +1,4 @@
-package com.jamgu.krouterapi.router
+package com.jamgu.krouter.core.router
 
 import android.content.Context
 import android.net.Uri

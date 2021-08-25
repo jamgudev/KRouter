@@ -1,4 +1,4 @@
-package com.jamgu.krouterapi
+package com.jamgu.krouter.core
 
 import android.content.Context
 

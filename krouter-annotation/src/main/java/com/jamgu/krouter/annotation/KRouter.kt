@@ -1,4 +1,4 @@
-package com.jamgu.krouterannotation
+package com.jamgu.krouter.annotation
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.BINARY)

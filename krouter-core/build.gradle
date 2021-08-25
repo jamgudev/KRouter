@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
 }
 
-//apply from: "${rootDir}/publish.gradle"
+apply from: "${rootDir}/publish.gradle"
 
 android {
     compileSdkVersion Integer.parseInt(project.COMPILE_SDK_VERSION)
@@ -31,5 +31,6 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    api project(":krouter-annotation")
+//    api project(":krouter-annotation")
+    api "io.github.jamgudev:krouter-annotation:1.0.1"
 }

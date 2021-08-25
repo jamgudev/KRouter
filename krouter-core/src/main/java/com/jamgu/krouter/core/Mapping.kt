@@ -1,13 +1,13 @@
-package com.jamgu.krouterapi
+package com.jamgu.krouter.core
 
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import com.jamgu.krouterapi.constants.KROUTER_SCHEME_NAME
-import com.jamgu.krouterapi.method.IMethodInvoker
-import com.jamgu.krouterapi.router.ParamTypes
+import com.jamgu.krouter.core.constants.KROUTER_SCHEME_NAME
+import com.jamgu.krouter.core.method.IMethodInvoker
+import com.jamgu.krouter.core.router.ParamTypes
 import java.util.Locale
 
 /**

@@ -1,9 +1,9 @@
-package com.jamgu.krouterapi
+package com.jamgu.krouter.core
 
 import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
-import com.jamgu.krouterapi.constants.KROUTER_SCHEME_NAME
+import com.jamgu.krouter.core.constants.KROUTER_SCHEME_NAME
 
 /**
  * Created by jamgu on 2021/08/21

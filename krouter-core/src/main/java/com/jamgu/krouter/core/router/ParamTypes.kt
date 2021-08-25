@@ -1,4 +1,4 @@
-package com.jamgu.krouterapi.router
+package com.jamgu.krouter.core.router
 
 /**
  * Created by jamgu on 2021/08/21

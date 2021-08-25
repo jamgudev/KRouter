@@ -1,4 +1,4 @@
-package com.jamgu.krouterapi.router
+package com.jamgu.krouter.core.router
 
 import android.app.Activity
 import android.content.Context
@@ -6,8 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import com.jamgu.krouterapi.Mapping
-import com.jamgu.krouterapi.Path
+import com.jamgu.krouter.core.Mapping
+import com.jamgu.krouter.core.Path
 import java.lang.RuntimeException
 
 /**
@@ -51,7 +51,8 @@ object KRouters {
 
     @JvmStatic
     fun open(context: Context, url: Uri, bundle: Bundle?, routerCallback: IRouterCallback?, requestCode: Int?) =
-        open(RouterParam.Builder()
+        open(
+            RouterParam.Builder()
                 .context(context)
                 .uri(url)
                 .bundle(bundle)
