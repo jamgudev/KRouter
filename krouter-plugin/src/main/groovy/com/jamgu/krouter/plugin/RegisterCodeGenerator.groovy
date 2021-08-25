@@ -1,7 +1,7 @@
-package com.jamgu.krouterplugin
+package com.jamgu.krouter.plugin
 
-import com.jamgu.krouterplugin.utils.Logger
-import com.jamgu.krouterplugin.utils.ScanSetting
+import com.jamgu.krouter.plugin.utils.Logger
+import com.jamgu.krouter.plugin.utils.ScanSetting
 import org.apache.commons.io.IOUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter

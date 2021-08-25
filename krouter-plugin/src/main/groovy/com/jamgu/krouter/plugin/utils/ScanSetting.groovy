@@ -1,11 +1,11 @@
-package com.jamgu.krouterplugin.utils
+package com.jamgu.krouter.plugin.utils
 
 class ScanSetting {
     static final String PLUGIN_NAME = "com.jamgu.krouter.plugin"
     /**
      * The register code is generated into this class
      */
-    static final String GENERATE_TO_CLASS_NAME = 'com/jamgu/krouterapi/KRouterInit'
+    static final String GENERATE_TO_CLASS_NAME = 'com/jamgu/krouter/core/KRouterInit'
     /**
      * you know. this is the class file(or entry in jar file) name
      */
@@ -21,7 +21,7 @@ class ScanSetting {
     /**
      * The package name of the interfaces
      */
-    private static final INTERFACE_PACKAGE_NAME = 'com/jamgu/krouterapi/'
+    private static final INTERFACE_PACKAGE_NAME = 'com/jamgu/krouter/core/'
 
     /**
      * register method name in class: {@link #GENERATE_TO_CLASS_NAME}

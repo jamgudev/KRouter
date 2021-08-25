@@ -1,4 +1,4 @@
-package com.jamgu.krouterplugin.utils
+package com.jamgu.krouter.plugin.utils
 
 import org.gradle.api.Project
 

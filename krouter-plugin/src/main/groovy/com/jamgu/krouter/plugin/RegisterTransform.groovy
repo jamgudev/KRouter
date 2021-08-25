@@ -1,4 +1,4 @@
-package com.jamgu.krouterplugin
+package com.jamgu.krouter.plugin
 
 import com.android.build.api.transform.Context
 import com.android.build.api.transform.DirectoryInput
@@ -10,9 +10,9 @@ import com.android.build.api.transform.TransformException
 import com.android.build.api.transform.TransformInput
 import com.android.build.api.transform.TransformOutputProvider
 import com.android.build.gradle.internal.pipeline.TransformManager
-import com.jamgu.krouterplugin.utils.Logger
-import com.jamgu.krouterplugin.utils.ScanSetting
-import com.jamgu.krouterplugin.utils.ScanUtil
+import com.jamgu.krouter.plugin.utils.Logger
+import com.jamgu.krouter.plugin.utils.ScanSetting
+import com.jamgu.krouter.plugin.utils.ScanUtil
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project

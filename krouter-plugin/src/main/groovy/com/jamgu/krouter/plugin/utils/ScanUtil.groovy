@@ -1,6 +1,6 @@
-package com.jamgu.krouterplugin.utils
+package com.jamgu.krouter.plugin.utils
 
-import com.jamgu.krouterplugin.RegisterTransform
+import com.jamgu.krouter.plugin.RegisterTransform
 import jdk.internal.org.objectweb.asm.ClassReader
 import jdk.internal.org.objectweb.asm.ClassVisitor
 import jdk.internal.org.objectweb.asm.ClassWriter

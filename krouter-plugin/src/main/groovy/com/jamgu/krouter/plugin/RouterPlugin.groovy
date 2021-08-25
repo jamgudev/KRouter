@@ -1,9 +1,9 @@
-package com.jamgu.krouterplugin
+package com.jamgu.krouter.plugin
 
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
-import com.jamgu.krouterplugin.utils.Logger
-import com.jamgu.krouterplugin.utils.ScanSetting
+import com.jamgu.krouter.plugin.utils.Logger
+import com.jamgu.krouter.plugin.utils.ScanSetting
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
