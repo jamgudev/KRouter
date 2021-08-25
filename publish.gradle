@@ -7,62 +7,108 @@ properties.load(rootProject.file('local.properties').newDataInputStream())
 def ossrhUsername = properties.getProperty("ossrhUsername")
 def ossrhPassword = properties.getProperty("ossrhPassword")
 
-def getPackage() {
-    return hasProperty("POM_PACKAGING") ? POM_PACKAGING : "aar"
+// 配置生成srouces jar 和javadoc dar的task
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        // https://github.com/novoda/bintray-release/issues/71
+//        excludes = ['**/*.kt'] // < ---- Exclude all kotlin files from javadoc file.
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        options.encoding = "utf-8"
+        options.charSet = "utf-8"
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
 }
 
-def isPublishToLocal = hasProperty("PUBLISH_TO_LOCAL") ?
-        PUBLISH_TO_LOCAL : Boolean.parseBoolean(rootProject.PUBLISH_TO_LOCAL)
-
-//签名
-signing {
-    required { gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
+// 强制 Java/JavaDoc 等的编码为 UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            pom.groupId = POM_GROUP_ID
-            pom.artifactId = POM_ARTIFACT_ID
-            pom.version = POM_VERSION
+tasks.withType(Javadoc) {
+    options.encoding = "UTF-8"
+}
 
-            if (isPublishToLocal) {
-                repository(url: rootProject.ext.mavenLocalUrl)
-            } else {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
 
-                repository(url: MAVEN_THIRD_PARTY) {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
-                }
+// add javadoc/source jar tasks as artifacts
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
 
-                snapshotRepository(url: MAVEN_SNAPSHOT) {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
-                }
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                pom.groupId = POM_GROUP_ID
+                pom.artifactId = POM_ARTIFACT_ID
+                pom.version = POM_VERSION
 
-                pom.project {
-                    name POM_NAME
-                    packaging getPackage()
-                    description POM_DESCRIPTION
-                    url 'https://github.com/jamgudev'
+                boolean isPublishToLocal = project.hasProperty("PUBLISH_TO_LOCAL")
+                        ? Boolean.parseBoolean(PUBLISH_TO_LOCAL)
+                        : Boolean.parseBoolean(rootProject.PUBLISH_TO_LOCAL)
+                if (isPublishToLocal) {
+                    println("$project publish local")
+                    repository(url: rootProject.ext.mavenLocalUrl)
+                } else {
+                    //签名
+                    println("$project publish remote")
+                    signing { sign configurations.archives }
+                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                    licenses {
-                        license {
-                            name 'The Apache License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
+                    repository(url: MAVEN_THIRD_PARTY) {
+                        authentication(userName: ossrhUsername, password: ossrhPassword)
                     }
 
-                    developers {
-                        developer {
-                            id 'jamgu'
-                            name 'jamgu'
-                            email '826630153@qq.com'
+                    snapshotRepository(url: MAVEN_SNAPSHOT) {
+                        authentication(userName: ossrhUsername, password: ossrhPassword)
+                    }
+
+                    String getPackaging = project.hasProperty("POM_PACKAGING")
+                            ? POM_PACKAGING : "aar"
+                    pom.project {
+                        name POM_NAME
+                        packaging getPackaging
+                        description POM_DESCRIPTION
+                        url 'https://github.com/jamgudev'
+
+                        scm {
+                            connection SCM_CONNECTION
+                            developerConnection SCM_DEVELOPER_CONNECTION
+                            url SCM_URL
+                        }
+
+                        licenses {
+                            license {
+                                name 'The Apache License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'jamgu'
+                                name 'jamgu'
+                                email '826630153@qq.com'
+                            }
                         }
                     }
                 }
+
             }
-
         }
     }
 }

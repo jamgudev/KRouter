@@ -36,6 +36,9 @@ allprojects {
         maven {
             url project.MAVEN_URL_RELEASE
         }
+        maven {
+            url rootProject.ext.mavenLocalUrl
+        }
         maven { url "https://www.jitpack.io" }
         mavenCentral()
     }
