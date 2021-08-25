@@ -1,38 +1,22 @@
-package com.jamgu.kroutercompiler.router
+package com.jamgu.krouter.compiler.router
 
-import com.jamgu.krouterannotation.KRouter
-import com.jamgu.kroutercompiler.utils.error
+import com.jamgu.krouter.annotation.KRouter
+import com.jamgu.krouter.compiler.BaseProcessor
+import com.jamgu.krouter.compiler.utils.Constants.PREFIX_OF_LOGGER
 import com.squareup.javapoet.ClassName
-import javax.annotation.processing.AbstractProcessor
-import javax.annotation.processing.Filer
-import javax.annotation.processing.Messager
-import javax.annotation.processing.ProcessingEnvironment
 import javax.annotation.processing.RoundEnvironment
-import javax.lang.model.SourceVersion
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
 
 /**
  * Created by jamgu on 2021/08/22
  */
-class RouterProcessor: AbstractProcessor() {
-
-    private var messager: Messager? = null
-    private var filer: Filer? = null
+class RouterProcessor: BaseProcessor() {
 
     private val entities: ArrayList<RouterEntity> by lazy { ArrayList() }
 
-    override fun init(processingEnvironment: ProcessingEnvironment?) {
-        super.init(processingEnvironment)
-        messager = processingEnvironment?.messager
-        filer = processingEnvironment?.filer
-    }
     override fun getSupportedAnnotationTypes(): MutableSet<String> {
         return mutableSetOf(KRouter::class.java.canonicalName)
-    }
-
-    override fun getSupportedSourceVersion(): SourceVersion {
-        return SourceVersion.latestSupported()
     }
 
     override fun process(annotations: MutableSet<out TypeElement>?, roundEnvironment: RoundEnvironment?): Boolean {
@@ -49,9 +33,8 @@ class RouterProcessor: AbstractProcessor() {
 
             kRouter?.value?.forEach { value ->
                 if (value.startsWith("/") || value.endsWith("/")) {
-                    error(messager,
-                        "${kRouter.javaClass.simpleName}.value can not start/end with \"/\", " +
-                                "at ${kRouter.javaClass.canonicalName}@Router(\"$value\").")
+                    mLogger?.error("$PREFIX_OF_LOGGER ${kRouter.javaClass.simpleName}.value can not start/end with \"/\", " +
+                            "at ${kRouter.javaClass.canonicalName}@Router(\"$value\").")
                     return true
                 }
             }
@@ -72,7 +55,7 @@ class RouterProcessor: AbstractProcessor() {
                     routerEntity.classNameTypeMirror = element.asType()
                 }
                 else -> {
-                    error(messager, "${kRouter.javaClass.simpleName} only support CLASS type.")
+                    mLogger?.error("$PREFIX_OF_LOGGER ${kRouter.javaClass.simpleName} only support CLASS type.")
                     return true
                 }
             }
@@ -81,7 +64,7 @@ class RouterProcessor: AbstractProcessor() {
         }
 
         // write to java file
-        RouterMappingCodeWriter(messager, entities, filer).write()
+        RouterMappingCodeWriter(mLogger, entities, moduleName, mFiler).write()
 
         return true
     }

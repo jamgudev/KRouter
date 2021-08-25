@@ -14,5 +14,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api 'com.squareup:javapoet:1.10.0' // version of JavaPoet currently
     api 'com.github.agrosner:KPoet:1.0.0' // version of KPoet
-    implementation project(':krouter-annotation')
+//    implementation project(':krouter-annotation')
+    implementation "io.github.jamgudev:krouter-annotation:1.0.1"
 }

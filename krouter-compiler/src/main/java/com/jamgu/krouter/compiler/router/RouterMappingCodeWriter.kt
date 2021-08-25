@@ -1,38 +1,35 @@
-package com.jamgu.kroutercompiler.router
+package com.jamgu.krouter.compiler.router
 
 import com.grosner.kpoet.`public final class`
 import com.grosner.kpoet.`public static`
 import com.grosner.kpoet.implements
 import com.grosner.kpoet.javadoc
 import com.grosner.kpoet.param
-import com.jamgu.kroutercompiler.utils.ClassNameConstants
-import com.jamgu.kroutercompiler.utils.ClassNameConstants.ANDROID_CONTEXT
-import com.jamgu.kroutercompiler.utils.ClassNameConstants.KROUTER_NAME
-import com.jamgu.kroutercompiler.utils.ClassNameConstants.PARAMTYPES_CLASS
-import com.jamgu.kroutercompiler.utils.isSubtypeOfType
+import com.jamgu.krouter.compiler.utils.ClassNameConstants
+import com.jamgu.krouter.compiler.utils.ClassNameConstants.ANDROID_CONTEXT
+import com.jamgu.krouter.compiler.utils.ClassNameConstants.PARAMTYPES_CLASS
+import com.jamgu.krouter.compiler.utils.Constants.GENERATED_CLASS_NAME_PREFIX
+import com.jamgu.krouter.compiler.utils.Constants.PREFIX_OF_LOGGER
+import com.jamgu.krouter.compiler.utils.Logger
+import com.jamgu.krouter.compiler.utils.isSubtypeOfType
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.TypeName
+import java.util.Locale
 import javax.annotation.processing.Filer
-import javax.annotation.processing.Messager
-import javax.tools.Diagnostic
 
 /**
  * Created by jamgu on 2021/08/22
  */
 internal class RouterMappingCodeWriter(
-    private val messager: Messager?,
+    private val mLogger: Logger?,
     private val routerEntities: ArrayList<RouterEntity>,
+    private val moduleName: String?,
     private val filer: Filer?
 ) {
 
-    companion object {
-        const val GENERATED_CLASS_NAME_PREFIX = "KRouterMapping"
-    }
-
     fun write() {
-
-        val classFileName = GENERATED_CLASS_NAME_PREFIX
+        val classFileName = "${GENERATED_CLASS_NAME_PREFIX}_$moduleName"
         val typeSpec = `public final class`(classFileName) {
             javadoc("This is generated code, please do not modify. \n")
             implements(ClassNameConstants.INTERFACES_CLASS)
@@ -79,9 +76,8 @@ internal class RouterMappingCodeWriter(
                     )
                 }
                 else -> {
-                    messager?.printMessage(
-                        Diagnostic.Kind.ERROR,
-                        "@$KROUTER_NAME annotation is not support to map class ${entity.className.toString()}."
+                    mLogger?.error(
+                        "$PREFIX_OF_LOGGER @KRouter annotation is not support to map class ${entity.className.toString()}."
                     )
                 }
             }
@@ -118,7 +114,7 @@ internal class RouterMappingCodeWriter(
 
             if (arrayContent.isNotBlank()) {
                 mb.addStatement(
-                    "$extraTypeVarName.set${typeName.capitalize()}" +
+                    "$extraTypeVarName.set${typeName.capitalize(Locale.getDefault())}" +
                             "Extra(new String[]{$arrayContent})"
                 )
             }

@@ -1,6 +1,6 @@
-package com.jamgu.kroutercompiler
+package com.jamgu.krouter.compiler
 
-import com.jamgu.kroutercompiler.router.RouterProcessor
+import com.jamgu.krouter.compiler.router.RouterProcessor
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.ProcessingEnvironment
 import javax.annotation.processing.RoundEnvironment
@@ -10,14 +10,13 @@ import javax.lang.model.element.TypeElement
 /**
  * Created by jamgu on 2021/08/22
  */
-class MergeRouterProcessor : AbstractProcessor() {
+class MergeRouterProcessor : BaseProcessor() {
 
     private val processors = arrayOf(RouterProcessor())
 
-    override fun init(p0: ProcessingEnvironment?) {
-        super.init(p0)
+    override fun init(processingEnv: ProcessingEnvironment?) {
         processors.forEach {
-            it.init(p0)
+            it.init(processingEnv)
         }
     }
 
@@ -36,7 +35,4 @@ class MergeRouterProcessor : AbstractProcessor() {
         }
     }
 
-    override fun getSupportedSourceVersion(): SourceVersion {
-        return SourceVersion.latestSupported()
-    }
 }

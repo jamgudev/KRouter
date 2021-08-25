@@ -1,4 +1,4 @@
-package com.jamgu.kroutercompiler.router
+package com.jamgu.krouter.compiler.router
 
 import com.squareup.javapoet.ClassName
 import javax.lang.model.type.TypeMirror
