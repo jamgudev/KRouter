@@ -12,8 +12,13 @@ java {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    api 'com.squareup:javapoet:1.10.0' // version of JavaPoet currently
-    api 'com.github.agrosner:KPoet:1.0.0' // version of KPoet
+    // version of JavaPoet currently
+    implementation 'com.squareup:javapoet:1.10.0'
+    // version of KPoet
+    implementation('com.github.agrosner:KPoet:1.0.0'){
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jre8'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jre7'
+    }
 //    implementation project(':krouter-annotation')
     implementation "io.github.jamgudev:krouter-annotation:1.0.1"
 }
