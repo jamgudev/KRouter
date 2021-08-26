@@ -13,19 +13,19 @@ class Logger {
 
     static void i(String info) {
         if (null != info && null != logger && isLogEnable) {
-            System.out.println("KRouter::Register info -=> " + info)
+            System.out.println("KRouter::Plugin info --> " + info)
         }
     }
 
     static void e(String error) {
         if (null != error && null != logger) {
-            System.out.println("KRouter::Register error -=> " + error)
+            System.out.println("KRouter::Plugin error --> " + error)
         }
     }
 
     static void w(String warning) {
         if (null != warning && null != logger && isLogEnable) {
-            System.out.println("KRouter::Register warn -=> " + warning)
+            System.out.println("KRouter::Plugin warn --> " + warning)
         }
     }
 }

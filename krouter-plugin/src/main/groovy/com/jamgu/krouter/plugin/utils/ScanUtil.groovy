@@ -62,8 +62,14 @@ class ScanUtil {
             ScanClassVisitor cv = new ScanClassVisitor(Opcodes.ASM5, cw)
             cr.accept(cv, ClassReader.EXPAND_FRAMES)
             inputStream.close()
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+            // ClassReader cr = new ClassReader(inputStream) may cause
+            // ArrayIndexOutOfBoundsException when scanning Java Module
+            // while plugin can still properly,
+            // unknown reason, ignore this exception for now
+            // do nothing
         } catch (Exception e) {
-            Logger.e(e.getMessage())
+            Logger.e(e.toString() + ": " + e.getMessage())
         }
     }
 

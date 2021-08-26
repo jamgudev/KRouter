@@ -5,7 +5,7 @@ class ScanSetting {
     /**
      * The register code is generated into this class
      */
-    static final String GENERATE_TO_CLASS_NAME = 'com/jamgu/krouter/core/KRouterInit'
+    static final String GENERATE_TO_CLASS_NAME = 'com/jamgu/krouter/core/RouterMappingInitiator'
     /**
      * you know. this is the class file(or entry in jar file) name
      */
