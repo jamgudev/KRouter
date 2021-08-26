@@ -5,11 +5,15 @@ import android.content.Context
 /**
  * Created by jamgu on 2021/08/23
  */
-object KRouterInit {
+internal object RouterMappingInitiator {
+
+    private var hasInit: Boolean = false
 
     @JvmStatic
     fun init(context: Context) {
-
+        hasInit = true
     }
+
+    fun isInitialised(): Boolean = hasInit
 
 }

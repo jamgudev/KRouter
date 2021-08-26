@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import com.jamgu.krouter.core.Mapping
 import com.jamgu.krouter.core.Path
+import com.jamgu.krouter.core.RouterMappingInitiator
 import java.lang.RuntimeException
 
 /**
@@ -63,6 +64,10 @@ object KRouters {
     private fun open(routerParam: RouterParam): Boolean {
         val context = routerParam.getContext() ?: return false
         val uri = routerParam.getUri() ?: return false
+
+        if (!RouterMappingInitiator.isInitialised()) {
+            RouterMappingInitiator.init(context)
+        }
 
         val bundle = routerParam.getBundle()
         val routerCallback = routerParam.getRouterCallback()

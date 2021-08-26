@@ -13,7 +13,7 @@ import java.util.Locale
 /**
  * Created by jamgu on 2021/08/21
  */
-class Mapping(
+internal class Mapping(
     var authority: String?,
     val activity: Class<out Activity>?,
     val methodInvoker: IMethodInvoker?,
