@@ -1,10 +1,10 @@
 package com.jamgu.krouter.compiler.router
 
-import com.grosner.kpoet.`public final class`
-import com.grosner.kpoet.`public static`
-import com.grosner.kpoet.implements
-import com.grosner.kpoet.javadoc
-import com.grosner.kpoet.param
+import com.jamgu.krouter.compiler.utils.kpoet.`public final class`
+import com.jamgu.krouter.compiler.utils.kpoet.`public static`
+import com.jamgu.krouter.compiler.utils.kpoet.implements
+import com.jamgu.krouter.compiler.utils.kpoet.javadoc
+import com.jamgu.krouter.compiler.utils.kpoet.param
 import com.jamgu.krouter.compiler.utils.ClassNameConstants
 import com.jamgu.krouter.compiler.utils.ClassNameConstants.ANDROID_CONTEXT
 import com.jamgu.krouter.compiler.utils.ClassNameConstants.PARAMTYPES_CLASS
