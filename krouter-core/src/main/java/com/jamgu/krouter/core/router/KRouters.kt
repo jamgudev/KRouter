@@ -16,7 +16,7 @@ import java.lang.RuntimeException
  */
 object KRouters {
 
-    private const val TAG = "KRouter"
+    private val TAG = this.javaClass.simpleName
 
     private val sMapping = ArrayList<Mapping>()
 

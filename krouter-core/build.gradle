@@ -31,6 +31,5 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-//    api project(":krouter-annotation")
     api "io.github.jamgudev:krouter-annotation:1.0.1"
 }
