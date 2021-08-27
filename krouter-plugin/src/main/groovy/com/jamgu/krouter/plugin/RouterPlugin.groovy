@@ -51,7 +51,6 @@ class RouterPlugin implements Plugin<Project> {
         }
     }
 
-    // TODO add loggable conf
     private void addDependence(Project project) {
         // https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin/src/main/resources/META-INF/gradle-plugins
         def isKotlinProject = project.plugins.hasPlugin('kotlin-android') || project.plugins.hasPlugin('org.jetbrains.kotlin.android')
@@ -79,6 +78,7 @@ class RouterPlugin implements Plugin<Project> {
         if (android) {
             Map<String, String> options = [
                     (Constants.Opt.MODULE_NAME): project.name,
+                    (Constants.Opt.LOGGABLE): Logger.isLogEnable.toString(),
             ]
             android.defaultConfig.javaCompileOptions.annotationProcessorOptions.arguments(options)
             android.productFlavors.all { ProductFlavor flavor ->
@@ -91,6 +91,7 @@ class RouterPlugin implements Plugin<Project> {
         if (kapt) {
             kapt.arguments({
                 arg(Constants.Opt.MODULE_NAME, project.name)
+                arg(Constants.Opt.LOGGABLE, Logger.isLogEnable.toString())
             })
         }
     }

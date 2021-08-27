@@ -8,14 +8,25 @@ class Constants {
     static final String REGISTER_METHOD_NAME = "map"
 
     class Ext {
+        /**
+         * default router core version
+         */
         static final String DEFAULT_ROUTER_CORE_VERSION = "1.0.1"
-
+        /**
+         * default router compiler version
+         */
         static final String DEFAULT_ROUTER_COMPILER_VERSION = "1.0.1"
-
+        /**
+         * router core version defined by user
+         */
         static final String ROUTER_CORE_VERSION = "krouter_core_version"
-
+        /**
+         * router compiler version defined by user
+         */
         static final String ROUTER_COMPILER_VERSION = "krouter_compiler_version"
-
+        /**
+         * conf that deceives is plugin log enable
+         */
         static final String ROUTER_COMPILE_LOGGABLE = "krouter_compile_loggable"
 
         static final String ROUTER_EXTRA_SUPPORT_MODULES = "krouter_extra_support_modules"
@@ -27,6 +38,7 @@ class Constants {
          * for classifying different generated classes from different  module
          */
         static final String MODULE_NAME = "KRouter_Module_Name"
+        static final String LOGGABLE = "KRouter_Compile_Loggable"
     }
 
     class Apt {
