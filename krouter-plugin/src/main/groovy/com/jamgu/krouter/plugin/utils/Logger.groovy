@@ -7,25 +7,26 @@ class Logger {
 
     static boolean isLogEnable = false
 
-    static void make(Project project) {
+    static void make(Project project, Boolean loggable) {
         logger = project.getLogger()
+        isLogEnable = loggable
     }
 
     static void i(String info) {
         if (null != info && null != logger && isLogEnable) {
-            System.out.println("KRouter::Plugin info --> " + info)
+            System.out.println("KRouter::plugin info >>> " + info)
         }
     }
 
     static void e(String error) {
         if (null != error && null != logger) {
-            System.out.println("KRouter::Plugin error --> " + error)
+            System.out.println("KRouter::plugin error >>> " + error)
         }
     }
 
     static void w(String warning) {
         if (null != warning && null != logger && isLogEnable) {
-            System.out.println("KRouter::Plugin warn --> " + warning)
+            System.out.println("KRouter::plugin warn >>> " + warning)
         }
     }
 }
