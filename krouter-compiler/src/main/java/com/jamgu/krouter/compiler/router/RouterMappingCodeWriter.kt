@@ -1,10 +1,5 @@
 package com.jamgu.krouter.compiler.router
 
-import com.jamgu.krouter.compiler.utils.kpoet.`public final class`
-import com.jamgu.krouter.compiler.utils.kpoet.`public static`
-import com.jamgu.krouter.compiler.utils.kpoet.implements
-import com.jamgu.krouter.compiler.utils.kpoet.javadoc
-import com.jamgu.krouter.compiler.utils.kpoet.param
 import com.jamgu.krouter.compiler.utils.ClassNameConstants
 import com.jamgu.krouter.compiler.utils.ClassNameConstants.ANDROID_CONTEXT
 import com.jamgu.krouter.compiler.utils.ClassNameConstants.PARAMTYPES_CLASS
@@ -12,6 +7,11 @@ import com.jamgu.krouter.compiler.utils.Constants.GENERATED_CLASS_NAME_PREFIX
 import com.jamgu.krouter.compiler.utils.Constants.PREFIX_OF_LOGGER
 import com.jamgu.krouter.compiler.utils.Logger
 import com.jamgu.krouter.compiler.utils.isSubtypeOfType
+import com.jamgu.krouter.compiler.utils.kpoet.`public final class`
+import com.jamgu.krouter.compiler.utils.kpoet.`public static`
+import com.jamgu.krouter.compiler.utils.kpoet.implements
+import com.jamgu.krouter.compiler.utils.kpoet.javadoc
+import com.jamgu.krouter.compiler.utils.kpoet.param
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.TypeName
@@ -76,8 +76,8 @@ internal class RouterMappingCodeWriter(
                     )
                 }
                 else -> {
-                    mLogger?.error(
-                        "$PREFIX_OF_LOGGER @KRouter annotation is not support to map class ${entity.className.toString()}."
+                    mLogger?.error("$PREFIX_OF_LOGGER @KRouter annotation is not support to map class " +
+                            "${entity.className.toString()}."
                     )
                 }
             }

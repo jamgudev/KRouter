@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.jamgu.krouter.compiler.utils.kpoet
 
 import com.squareup.javapoet.*
@@ -45,12 +47,12 @@ inline fun MethodSpec.Builder.annotation(className: KClass<*>,
 inline fun MethodSpec.Builder.`if`(statement: String, vararg args: Any?,
                                    function: MethodMethod
 )
-        = beginControl("if", statement = statement, args = *args, function = function)
+        = beginControl("if", statement = statement, *args, function = function)
 
 inline fun MethodSpec.Builder.`do`(function: MethodMethod)
         = beginControl("do", function = function)
 
-fun MethodSpec.Builder.`while`(statement: String, vararg args: Any?) = endControl("while", statement = statement, args = *args)
+fun MethodSpec.Builder.`while`(statement: String, vararg args: Any?) = endControl("while", statement = statement, *args)
 
 infix inline fun MethodSpec.Builder.`else`(function: MethodMethod)
         = nextControl("else", function = function)
@@ -58,7 +60,7 @@ infix inline fun MethodSpec.Builder.`else`(function: MethodMethod)
 inline fun MethodSpec.Builder.`else if`(statement: String, vararg args: Any?,
                                         function: MethodMethod
 )
-        = nextControl("else if", statement = statement, args = *args, function = function)
+        = nextControl("else if", statement = statement, *args, function = function)
 
 fun MethodSpec.Builder.end(statement: String = "", vararg args: Any?)
         = (if (statement.isNullOrBlank().not()) endControlFlow(statement, *args) else endControlFlow())!!
@@ -66,12 +68,12 @@ fun MethodSpec.Builder.end(statement: String = "", vararg args: Any?)
 inline fun MethodSpec.Builder.`for`(statement: String, vararg args: Any?,
                                     function: MethodMethod
 )
-        = beginControl("for", statement = statement, args = *args, function = function).endControlFlow()!!
+        = beginControl("for", statement = statement, *args, function = function).endControlFlow()!!
 
 inline fun MethodSpec.Builder.`switch`(statement: String, vararg args: Any?,
                                        function: MethodMethod
 )
-        = beginControl("switch", statement = statement, args = *args, function = function).endControlFlow()!!
+        = beginControl("switch", statement = statement, *args, function = function).endControlFlow()!!
 
 fun MethodSpec.Builder.`return`(statement: String, vararg args: Any?) = addStatement("return $statement", *args)!!
 

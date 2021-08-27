@@ -6,12 +6,10 @@ import javax.tools.Diagnostic
 /**
  * Created by jamgu on 2021/08/24
  */
-class Logger(private val msg: Messager) {
-    /**
-     * Print info log.
-     */
+class Logger(private val msg: Messager, private val loggable: Boolean) {
+
     fun info(info: CharSequence) {
-        if (info.isNotEmpty()) {
+        if (info.isNotEmpty() && loggable) {
             msg.printMessage(Diagnostic.Kind.NOTE, Constants.PREFIX_OF_LOGGER + info + "\n")
         }
     }
@@ -20,7 +18,7 @@ class Logger(private val msg: Messager) {
         if (error.isNotEmpty()) {
             msg.printMessage(
                 Diagnostic.Kind.ERROR,
-                Constants.PREFIX_OF_LOGGER + "An exception is encountered, [" + error + "]"
+                Constants.PREFIX_OF_LOGGER + "an exception is encountered, [" + error + "]"
             )
         }
     }
@@ -29,7 +27,7 @@ class Logger(private val msg: Messager) {
         if (null != error) {
             msg.printMessage(
                 Diagnostic.Kind.ERROR,
-                Constants.PREFIX_OF_LOGGER + "An exception is encountered, [" + error.message + "]" + "\n" + formatStackTrace(
+                Constants.PREFIX_OF_LOGGER + "an exception is encountered, [" + error.message + "]" + "\n" + formatStackTrace(
                     error.stackTrace
                 )
             )
@@ -37,7 +35,7 @@ class Logger(private val msg: Messager) {
     }
 
     fun warning(warning: CharSequence) {
-        if (warning.isNotEmpty()) {
+        if (warning.isNotEmpty() && loggable) {
             msg.printMessage(Diagnostic.Kind.WARNING, Constants.PREFIX_OF_LOGGER + warning)
         }
     }

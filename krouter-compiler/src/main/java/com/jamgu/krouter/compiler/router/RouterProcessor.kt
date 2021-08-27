@@ -24,6 +24,8 @@ class RouterProcessor: BaseProcessor() {
             return false
         }
 
+        val start = System.currentTimeMillis()
+
         // find all the elements that was annotated by the specific annotation
         val elements = roundEnvironment?.getElementsAnnotatedWith(KRouter::class.java)
 
@@ -65,6 +67,8 @@ class RouterProcessor: BaseProcessor() {
 
         // write to java file
         RouterMappingCodeWriter(mLogger, entities, moduleName, mFiler).write()
+
+        mLogger?.info("router process finished, cost time: ${System.currentTimeMillis() - start}ms.")
 
         return true
     }
