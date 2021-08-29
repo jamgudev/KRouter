@@ -12,6 +12,12 @@ class Logger {
         isLogEnable = loggable
     }
 
+    static void d(String info) {
+        if (null != info && null != logger) {
+            System.out.println("KRouter::plugin info >>> " + info)
+        }
+    }
+
     static void i(String info) {
         if (null != info && null != logger && isLogEnable) {
             System.out.println("KRouter::plugin info >>> " + info)

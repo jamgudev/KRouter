@@ -65,11 +65,11 @@ class RouterPlugin implements Plugin<Project> {
             aptConf = 'kapt'
         }
 
-        Logger.i("add krouter-core dependence: [v${DEFAULT_ROUTER_CORE_VERSION}] to project: ${project.getName()}")
+        Logger.d("add krouter-core dependence: [v${DEFAULT_ROUTER_CORE_VERSION}] to project: [${project.getName()}]")
         project.dependencies.add('implementation',
                 "io.github.jamgudev:krouter-core:${DEFAULT_ROUTER_CORE_VERSION}")
 
-        Logger.i("add krouter-compiler dependence: [v${DEFAULT_ROUTER_COMPILER_VERSION}] to project: ${project.getName()}")
+        Logger.d("add krouter-compiler dependence: [v${DEFAULT_ROUTER_COMPILER_VERSION}] to project: [${project.getName()}]")
         project.dependencies.add(aptConf,
                 "io.github.jamgudev:krouter-compiler:${DEFAULT_ROUTER_COMPILER_VERSION}")
 

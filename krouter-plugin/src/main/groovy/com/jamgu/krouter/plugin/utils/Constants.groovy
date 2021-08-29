@@ -25,7 +25,7 @@ class Constants {
          */
         static final String ROUTER_COMPILER_VERSION = "krouter_compiler_version"
         /**
-         * conf that deceives is plugin log enable
+         * conf that decides if plugin log enable
          */
         static final String ROUTER_COMPILE_LOGGABLE = "krouter_compile_loggable"
 
