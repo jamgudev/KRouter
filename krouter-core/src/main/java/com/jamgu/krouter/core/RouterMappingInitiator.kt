@@ -11,6 +11,9 @@ internal object RouterMappingInitiator {
 
     @JvmStatic
     fun init(context: Context) {
+        if (hasInit) {
+            return
+        }
         hasInit = true
     }
 

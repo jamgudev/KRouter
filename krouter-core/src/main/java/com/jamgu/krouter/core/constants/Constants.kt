@@ -5,3 +5,5 @@ package com.jamgu.krouter.core.constants
  */
 
 const val KROUTER_SCHEME_NAME = "KRouter"
+
+const val LOG_PREFIX = "KRouter::core >>> "

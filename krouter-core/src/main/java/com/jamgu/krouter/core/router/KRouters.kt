@@ -9,7 +9,6 @@ import android.util.Log
 import com.jamgu.krouter.core.Mapping
 import com.jamgu.krouter.core.Path
 import com.jamgu.krouter.core.RouterMappingInitiator
-import java.lang.RuntimeException
 
 /**
  * Created by jamgu on 2021/08/21
@@ -127,6 +126,9 @@ object KRouters {
                 }
             }
         }
+
+        Log.d(TAG, "didn't find any url that matched the authority ${uri.authority}")
+
         return false
     }
 
