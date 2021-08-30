@@ -74,9 +74,16 @@ internal class RouterMappingCodeWriter(
                         ClassNameConstants.KROUTER_CLASS, uri, entity.className
                     )
                 }
+                isSubtypeOfType(entity.classNameTypeMirror, "androidx.fragment.app.Fragment") -> {
+                    builder.addStatement(
+                        "\$T.mapFragment(\$S, \$T.class, $paramTypeName)",
+                        ClassNameConstants.KROUTER_CLASS, uri, entity.className
+                    )
+                }
                 else -> {
                     mLogger?.error("@KRouter annotation is only support to annotate class that is sub type of " +
-                            "android.app.Activity.")
+                            "(android.app.Activity, androidx.fragment.app.Fragment), " +
+                            "current scanning class: ${entity.classNameTypeMirror}")
                 }
             }
         }

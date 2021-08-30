@@ -8,6 +8,12 @@ import javax.tools.Diagnostic
  */
 class Logger(private val msg: Messager, private val loggable: Boolean) {
 
+    fun notify(info: CharSequence) {
+        if (info.isNotEmpty()) {
+            println(Constants.PREFIX_OF_LOGGER + info)
+        }
+    }
+
     fun info(info: CharSequence) {
         if (info.isNotEmpty() && loggable) {
             println(Constants.PREFIX_OF_LOGGER + info)
