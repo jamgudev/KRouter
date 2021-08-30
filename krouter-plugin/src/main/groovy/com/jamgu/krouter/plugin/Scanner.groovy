@@ -31,8 +31,11 @@ class Scanner {
 
     static boolean shouldScanJar(JarInput jarInput) {
         excludeJar.each {
-            if (jarInput.name.contains(it))
+            Logger.info("scan jar file name: " + jarInput.name)
+            if (jarInput.name.contains(it)) {
+                Logger.info("exclude jar file name: " + jarInput.name)
                 return false
+            }
         }
         return true
     }
@@ -85,7 +88,7 @@ class Scanner {
             // unknown reason, ignore this exception for now
             // do nothing
         } catch (Exception e) {
-            Logger.e(e.toString() + ": " + e.getMessage())
+            Logger.error(e.toString() + ": " + e.getMessage())
         }
     }
 
@@ -102,7 +105,7 @@ class Scanner {
                     interfaces.each { interfaceName ->
                         if (interfaceName == record.templateName) {
                             record.aptClasses.add(name)
-                            Logger.i("found class $name implements interface $interfaceName, now add this class to @Record:$record.templateName's aptClasses, " +
+                            Logger.info("found class $name implements interface $interfaceName, now add this class to @Record:$record.templateName's aptClasses, " +
                                     "current aptClasses size = ${record.aptClasses.size()}")
                         }
                     }

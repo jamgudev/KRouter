@@ -12,25 +12,25 @@ class Logger {
         isLogEnable = loggable
     }
 
-    static void d(String info) {
+    static void notify(String info) {
         if (null != info && null != logger) {
             System.out.println("KRouter::plugin info >>> " + info)
         }
     }
 
-    static void i(String info) {
+    static void info(String info) {
         if (null != info && null != logger && isLogEnable) {
             System.out.println("KRouter::plugin info >>> " + info)
         }
     }
 
-    static void e(String error) {
+    static void error(String error) {
         if (null != error && null != logger) {
             System.out.println("KRouter::plugin error >>> " + error)
         }
     }
 
-    static void w(String warning) {
+    static void warning(String warning) {
         if (null != warning && null != logger && isLogEnable) {
             System.out.println("KRouter::plugin warn >>> " + warning)
         }

@@ -29,7 +29,7 @@ class Knife {
                 jarOutputStream.putNextEntry(zipEntry)
                 jarFile.getInputStream(jarEntry).withCloseable { is ->
                     if (entryName == Constants.REGISTER_CLASS_NAME) { // find RouterMappingInitiator.class
-                        Logger.i('Insert init code to class >> ' + entryName)
+                        Logger.info('Insert init code to class >> ' + entryName)
                         def bytes = modifyClass(is)
                         jarOutputStream.write(bytes)
                     } else {
@@ -90,7 +90,7 @@ class Knife {
                     record.aptClasses.each { className ->
                         mv.visitVarInsn(Opcodes.ALOAD, 0)
                         //name = name.replaceAll("/", ".")
-                        Logger.i("found apt class $className, insert register " +
+                        Logger.info("found apt class $className, insert register " +
                                 "code to RouterMappingInitiator.$Constants.REGISTER_CLASS_METHOD_NAME()")
                         mv.visitMethodInsn(Opcodes.INVOKESTATIC, className, Constants.REGISTER_METHOD_NAME, "(Landroid/content/Context;)V", false)
                     }

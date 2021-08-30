@@ -11,11 +11,11 @@ class Constants {
         /**
          * default router core version
          */
-        static final String DEFAULT_ROUTER_CORE_VERSION = "1.0.1"
+        static final String DEFAULT_ROUTER_CORE_VERSION = "1.0.2"
         /**
          * default router compiler version
          */
-        static final String DEFAULT_ROUTER_COMPILER_VERSION = "1.0.1"
+        static final String DEFAULT_ROUTER_COMPILER_VERSION = "1.0.2"
         /**
          * router core version defined by user
          */
@@ -28,6 +28,10 @@ class Constants {
          * conf that decides if plugin log enable
          */
         static final String ROUTER_COMPILE_LOGGABLE = "krouter_compile_loggable"
+        /**
+         * conf that decides is auto add dependency
+         */
+        static final String ROUTER_AUTO_ADD_DEPENDENCY = "krouter_auto_add_dependency"
 
         static final String ROUTER_EXTRA_SUPPORT_MODULES = "krouter_extra_support_modules"
     }

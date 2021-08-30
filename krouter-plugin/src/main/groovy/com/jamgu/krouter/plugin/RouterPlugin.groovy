@@ -41,8 +41,13 @@ class RouterPlugin implements Plugin<Project> {
             DEFAULT_ROUTER_COMPILER_VERSION = ext.get(Constants.Ext.ROUTER_COMPILER_VERSION)
         }
 
+        boolean isAutoAddDependency = true
+        if (ext.has(Constants.Ext.ROUTER_AUTO_ADD_DEPENDENCY)) {
+            isAutoAddDependency = ext.get(Constants.Ext.ROUTER_AUTO_ADD_DEPENDENCY)
+        }
+
         // add dependencies
-        addDependence(project)
+        addDependence(project, isAutoAddDependency)
 
         if (project.plugins.hasPlugin(AppPlugin)) {
             def android = project.extensions.getByType(AppExtension)
@@ -51,7 +56,11 @@ class RouterPlugin implements Plugin<Project> {
         }
     }
 
-    private void addDependence(Project project) {
+    private void addDependence(Project project, Boolean enable) {
+        if (!enable) {
+            return
+        }
+
         // https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin/src/main/resources/META-INF/gradle-plugins
         def isKotlinProject = project.plugins.hasPlugin('kotlin-android') || project.plugins.hasPlugin('org.jetbrains.kotlin.android')
         if (isKotlinProject) {
@@ -65,11 +74,11 @@ class RouterPlugin implements Plugin<Project> {
             aptConf = 'kapt'
         }
 
-        Logger.d("add krouter-core dependence: [v${DEFAULT_ROUTER_CORE_VERSION}] to project: [${project.getName()}]")
+        Logger.notify("add krouter-core dependence: [v${DEFAULT_ROUTER_CORE_VERSION}] to module: [${project.getName()}]")
         project.dependencies.add('implementation',
                 "io.github.jamgudev:krouter-core:${DEFAULT_ROUTER_CORE_VERSION}")
 
-        Logger.d("add krouter-compiler dependence: [v${DEFAULT_ROUTER_COMPILER_VERSION}] to project: [${project.getName()}]")
+        Logger.notify("add krouter-compiler dependence: [v${DEFAULT_ROUTER_COMPILER_VERSION}] to module: [${project.getName()}]")
         project.dependencies.add(aptConf,
                 "io.github.jamgudev:krouter-compiler:${DEFAULT_ROUTER_COMPILER_VERSION}")
 

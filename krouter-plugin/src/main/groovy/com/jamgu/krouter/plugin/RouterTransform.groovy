@@ -48,7 +48,7 @@ class RouterTransform extends Transform {
     void transform(TransformInvocation transformInvocation)
             throws TransformException, InterruptedException, IOException {
         long begin = System.currentTimeMillis()
-        Logger.i("transform begin:")
+        Logger.info("transform begin:")
         boolean isIncremental = transformInvocation.incremental
         if (!isIncremental) {
             transformInvocation.outputProvider.deleteAll()
@@ -57,7 +57,7 @@ class RouterTransform extends Transform {
 
         transformInvocation.inputs.each { TransformInput input ->
             if (!input.jarInputs.empty) {
-                Logger.i("transform jar start: isIncremental = $isIncremental")
+                Logger.info("transform jar start: isIncremental = $isIncremental")
                 input.jarInputs.each { JarInput jarInput ->
                     File destFile = getJarDestFile(transformInvocation, jarInput)
                     if (isIncremental) {
@@ -88,7 +88,7 @@ class RouterTransform extends Transform {
             }
 
             if (!input.directoryInputs.empty) {
-                Logger.i("transform directory start: isIncremental = $isIncremental")
+                Logger.info("transform directory start: isIncremental = $isIncremental")
                 input.directoryInputs.each { DirectoryInput directoryInput ->
                     File dest = transformInvocation.outputProvider.getContentLocation(
                             directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
@@ -139,13 +139,13 @@ class RouterTransform extends Transform {
 
         // 找到了RouterMappingInitiator.class 向其注入代码
         if (registerTargetFile) {
-            Logger.i("found register target file, location: $registerTargetFile," +
+            Logger.info("found register target file, location: $registerTargetFile," +
                     " start to insert register code to this file")
             Knife.handle()
         } else {
-            Logger.w("register target file not found.")
+            Logger.warn("register target file not found.")
         }
-        Logger.i("transform finished, cost time: ${(System.currentTimeMillis() - begin)}ms.")
+        Logger.notify("transform finished, cost time: ${(System.currentTimeMillis() - begin)}ms.")
     }
 
     static File getJarDestFile(TransformInvocation transformInvocation, JarInput jarInput) {
