@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.jamgu.krouter.core.constants.KROUTER_SCHEME_NAME
 import com.jamgu.krouter.core.method.IMethodInvoker
 import com.jamgu.krouter.core.router.ParamTypes
@@ -16,6 +17,7 @@ import java.util.Locale
 internal class Mapping(
     var authority: String?,
     val activity: Class<out Activity>?,
+    val fragment: Class<out Fragment>?,
     val methodInvoker: IMethodInvoker?,
     val paramTypes: ParamTypes?,
 ) {
@@ -23,6 +25,13 @@ internal class Mapping(
     companion object {
         const val TAG = "Mapping"
     }
+
+    constructor(authority: String?, fragment: Class<out Fragment>?, activity: Class<out Activity>?, paramTypes: ParamTypes?) :
+            this(authority, activity, fragment, null, paramTypes)
+
+    constructor(authority: String?, methodInvoker: IMethodInvoker?, paramTypes: ParamTypes?) :
+            this(authority, null, null, methodInvoker, paramTypes)
+
 
     /**
      * formatPath is the property that used for match
@@ -57,13 +66,6 @@ internal class Mapping(
 
         return fixAuthority
     }
-
-    constructor(authority: String?, activity: Class<out Activity>?, paramTypes: ParamTypes?) :
-            this(authority, activity, null, paramTypes)
-
-    constructor(authority: String?, methodInvoker: IMethodInvoker?, paramTypes: ParamTypes?) :
-            this(authority, null, methodInvoker, paramTypes)
-
 
     /**
      * Compare without scheme if it's not start with http/https.

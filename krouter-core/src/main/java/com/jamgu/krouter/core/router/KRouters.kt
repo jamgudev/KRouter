@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.jamgu.krouter.core.Mapping
 import com.jamgu.krouter.core.Path
 import com.jamgu.krouter.core.RouterMappingInitiator
@@ -21,23 +22,25 @@ object KRouters {
 
     @JvmStatic
     fun mapActivity(authority: String, activity: Class<out Activity>, paramTypes: ParamTypes?) {
-        sMapping.add(Mapping(authority, activity, paramTypes))
+        sMapping.add(Mapping(authority, null, activity, paramTypes))
     }
 
     @JvmStatic
-    fun open(context : Context, url: String): Boolean = open(context, Uri.parse(url))
+    fun mapFragment(authority: String, fragment: Class<out Fragment>, paramTypes: ParamTypes?) {
+        sMapping.add(Mapping(authority, fragment, null, paramTypes))
+    }
 
     @JvmStatic
-    fun open(context: Context, url: Uri): Boolean = open(context, url, null, -1)
+    fun open(context: Context, url: String): Boolean = open(context, Uri.parse(url))
+
+    @JvmStatic
+    fun open(context: Context, url: Uri): Boolean = open(context, url, null, null)
 
     @JvmStatic
     fun open(context: Context, url: Uri, bundle: Bundle?) =
-        open(context, url, bundle, -1)
+        open(context, url, bundle, null)
 
     @JvmStatic
-    fun open(context: Context, url: Uri, requestCode: Int?) =
-        open(context, url, null, requestCode)
-
     fun open(context: Context, url: Uri, callback: IRouterCallback?) =
         open(context, url, null, callback)
 
@@ -46,26 +49,71 @@ object KRouters {
         open(context, url, bundle, callback, -1)
 
     @JvmStatic
-    fun open(context: Context, url: Uri, bundle: Bundle?, requestCode: Int?) =
-        open(context, url, bundle, null, requestCode)
+    fun openForResult(context: Context, url: Uri, requestCode: Int?) =
+        openForResult(context, url, null, requestCode)
+
+    @JvmStatic
+    fun openForResult(context: Context, url: Uri, bundle: Bundle?, requestCode: Int?) =
+        openForResult(context, url, bundle, requestCode, null)
+
+    @JvmStatic
+    fun openForResult(context: Context, url: Uri, bundle: Bundle?, requestCode: Int?, callback: IRouterCallback?) =
+        open(context, url, bundle, callback, requestCode)
 
     @JvmStatic
     fun open(context: Context, url: Uri, bundle: Bundle?, routerCallback: IRouterCallback?, requestCode: Int?) =
         open(
             RouterParam.Builder()
-                .context(context)
-                .uri(url)
-                .bundle(bundle)
-                .routerCallback(routerCallback)
-                .requestCode(requestCode)
-                .build())
+                    .context(context)
+                    .uri(url)
+                    .bundle(bundle)
+                    .routerCallback(routerCallback)
+                    .requestCode(requestCode)
+                    .build()
+        )
+
+    @JvmStatic
+    fun createFragment(context: Context, url: String) = createFragment(context, Uri.parse(url))
+
+    @JvmStatic
+    fun createFragment(context: Context, url: Uri) = createFragment(context, url, null)
+
+    @JvmStatic
+    fun createFragment(context: Context, url: Uri, bundle: Bundle?): Fragment? =
+        createFragmentInner(context, url, bundle)
+
+    private fun createFragmentInner(context: Context, url: Uri, bundle: Bundle?): Fragment? {
+        if (!RouterMappingInitiator.isInitialised()) {
+            RouterMappingInitiator.init(context.applicationContext)
+        }
+
+        val path = Path.create(url)
+        sMapping.forEach {
+            if (it.match(path)) {
+                if (it.fragment != null) {
+                    val fragment = it.fragment.newInstance()
+                    val extraBundle = it.parseExtras(url)
+                    if (bundle != null) {
+                        extraBundle.putAll(bundle)
+                    }
+
+                    fragment.arguments = extraBundle
+                    return fragment
+                }
+            }
+        }
+
+        Log.e(TAG, "didn't find any url that matched the authority \"${url.authority}\"")
+
+        return null
+    }
 
     private fun open(routerParam: RouterParam): Boolean {
         val context = routerParam.getContext() ?: return false
         val uri = routerParam.getUri() ?: return false
 
         if (!RouterMappingInitiator.isInitialised()) {
-            RouterMappingInitiator.init(context)
+            RouterMappingInitiator.init(context.applicationContext)
         }
 
         val bundle = routerParam.getBundle()
@@ -116,8 +164,10 @@ object KRouters {
                         if (context is Activity) {
                             context.startActivityForResult(intent, requestCode)
                         } else {
-                            throw RuntimeException("$TAG can not startActivityForResult" +
-                                    " with context that is not subType of Activity")
+                            throw RuntimeException(
+                                "$TAG can not startActivityForResult" +
+                                        " with context that is not subType of Activity"
+                            )
                         }
                     } else {
                         context.startActivity(intent)
@@ -127,7 +177,7 @@ object KRouters {
             }
         }
 
-        Log.d(TAG, "didn't find any url that matched the authority ${uri.authority}")
+        Log.e(TAG, "didn't find any url that matched the authority \"${uri.authority}\"")
 
         return false
     }
