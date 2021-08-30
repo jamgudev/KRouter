@@ -4,7 +4,6 @@ import com.jamgu.krouter.compiler.utils.ClassNameConstants
 import com.jamgu.krouter.compiler.utils.ClassNameConstants.ANDROID_CONTEXT
 import com.jamgu.krouter.compiler.utils.ClassNameConstants.PARAMTYPES_CLASS
 import com.jamgu.krouter.compiler.utils.Constants.GENERATED_CLASS_NAME_PREFIX
-import com.jamgu.krouter.compiler.utils.Constants.PREFIX_OF_LOGGER
 import com.jamgu.krouter.compiler.utils.Logger
 import com.jamgu.krouter.compiler.utils.isSubtypeOfType
 import com.jamgu.krouter.compiler.utils.kpoet.`public final class`
@@ -76,9 +75,8 @@ internal class RouterMappingCodeWriter(
                     )
                 }
                 else -> {
-                    mLogger?.error("$PREFIX_OF_LOGGER @KRouter annotation is not support to map class " +
-                            "${entity.className.toString()}."
-                    )
+                    mLogger?.error("@KRouter annotation is only support to annotate class that is sub type of " +
+                            "android.app.Activity.")
                 }
             }
         }

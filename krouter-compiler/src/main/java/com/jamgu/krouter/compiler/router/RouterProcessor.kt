@@ -35,7 +35,7 @@ class RouterProcessor: BaseProcessor() {
 
             kRouter?.value?.forEach { value ->
                 if (value.startsWith("/") || value.endsWith("/")) {
-                    mLogger?.error("$PREFIX_OF_LOGGER ${kRouter.javaClass.simpleName}.value can not start/end with \"/\", " +
+                    mLogger?.error("KRouter.value can not start/end with \"/\", " +
                             "at ${kRouter.javaClass.canonicalName}@Router(\"$value\").")
                     return true
                 }
@@ -57,7 +57,7 @@ class RouterProcessor: BaseProcessor() {
                     routerEntity.classNameTypeMirror = element.asType()
                 }
                 else -> {
-                    mLogger?.error("$PREFIX_OF_LOGGER ${kRouter.javaClass.simpleName} only support CLASS type.")
+                    mLogger?.error("${kRouter.javaClass.simpleName} only support CLASS type.")
                     return true
                 }
             }

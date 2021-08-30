@@ -10,7 +10,8 @@ class Logger(private val msg: Messager, private val loggable: Boolean) {
 
     fun info(info: CharSequence) {
         if (info.isNotEmpty() && loggable) {
-            msg.printMessage(Diagnostic.Kind.NOTE, Constants.PREFIX_OF_LOGGER + info + "\n")
+            println(Constants.PREFIX_OF_LOGGER + info)
+//            msg.printMessage(Diagnostic.Kind.NOTE, Constants.PREFIX_OF_LOGGER + info + "\n")
         }
     }
 
