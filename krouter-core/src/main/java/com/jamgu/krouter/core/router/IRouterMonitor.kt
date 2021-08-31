@@ -6,7 +6,7 @@ import android.net.Uri
 /**
  * Created by jamgu on 2021/08/21
  */
-interface IRouterCallback {
+interface IRouterMonitor {
 
     fun beforeOpen(context: Context, uri: Uri): Boolean = false
 

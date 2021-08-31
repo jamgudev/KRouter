@@ -1,4 +1,4 @@
-package com.jamgu.krouter.core
+package com.jamgu.krouter.core.router
 
 import android.net.Uri
 import android.text.TextUtils
@@ -65,7 +65,7 @@ open class KRouterUriBuilder
 
     private fun withAny(key: String, value: Any?): KRouterUriBuilder {
         if (value == null) {
-            Log.d(TAG, "value is null, ignore this key.")
+            Log.d(TAG, "value is null, ignore this key@$key.")
         }
 
         this.builder.appendQueryParameter(key, value.toString())

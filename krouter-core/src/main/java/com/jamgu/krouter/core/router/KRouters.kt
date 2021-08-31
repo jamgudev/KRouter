@@ -41,12 +41,12 @@ object KRouters {
         open(context, url, bundle, null)
 
     @JvmStatic
-    fun open(context: Context, url: Uri, callback: IRouterCallback?) =
-        open(context, url, null, callback)
+    fun open(context: Context, url: Uri, monitor: IRouterMonitor?) =
+        open(context, url, null, monitor)
 
     @JvmStatic
-    fun open(context: Context, url: Uri, bundle: Bundle?, callback: IRouterCallback?) =
-        open(context, url, bundle, callback, -1)
+    fun open(context: Context, url: Uri, bundle: Bundle?, monitor: IRouterMonitor?) =
+        open(context, url, bundle, monitor, -1)
 
     @JvmStatic
     fun openForResult(context: Context, url: Uri, requestCode: Int?) =
@@ -57,17 +57,17 @@ object KRouters {
         openForResult(context, url, bundle, requestCode, null)
 
     @JvmStatic
-    fun openForResult(context: Context, url: Uri, bundle: Bundle?, requestCode: Int?, callback: IRouterCallback?) =
-        open(context, url, bundle, callback, requestCode)
+    fun openForResult(context: Context, url: Uri, bundle: Bundle?, requestCode: Int?, monitor: IRouterMonitor?) =
+        open(context, url, bundle, monitor, requestCode)
 
     @JvmStatic
-    fun open(context: Context, url: Uri, bundle: Bundle?, routerCallback: IRouterCallback?, requestCode: Int?) =
+    fun open(context: Context, url: Uri, bundle: Bundle?, monitor: IRouterMonitor?, requestCode: Int?) =
         open(
             RouterParam.Builder()
                     .context(context)
                     .uri(url)
                     .bundle(bundle)
-                    .routerCallback(routerCallback)
+                    .routerMonitor(monitor)
                     .requestCode(requestCode)
                     .build()
         )
@@ -129,6 +129,7 @@ object KRouters {
             success = doOpenInner(context, uri, bundle, requestCode)
         } catch (e: Throwable) {
             routerCallback?.onError(context, "${e.message}", e)
+            return success
         }
 
         if (success) {

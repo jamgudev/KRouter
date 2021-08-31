@@ -17,13 +17,13 @@ internal class RouterParam private constructor(private val builder: Builder) {
 
     fun getRequestCode(): Int? = this.builder.requestCode
 
-    fun getRouterCallback(): IRouterCallback? = this.builder.routerCallback
+    fun getRouterCallback(): IRouterMonitor? = this.builder.routerMonitor
 
-    class Builder {
+    internal class Builder {
         var context: Context? = null
         var uri: Uri? = null
         var requestCode: Int? = -1
-        var routerCallback: IRouterCallback? = null
+        var routerMonitor: IRouterMonitor? = null
         var bundle: Bundle? = null
 
         fun context(context: Context?): Builder {
@@ -41,14 +41,14 @@ internal class RouterParam private constructor(private val builder: Builder) {
             return this
         }
 
-        fun routerCallback(callback: IRouterCallback?): Builder {
-            this.routerCallback = callback
+        fun routerMonitor(monitor: IRouterMonitor?): Builder {
+            this.routerMonitor = monitor
             return this
         }
 
         fun bundle(bundle: Bundle?): Builder {
             this.bundle = bundle
-            return this;
+            return this
         }
 
         fun build(): RouterParam {
