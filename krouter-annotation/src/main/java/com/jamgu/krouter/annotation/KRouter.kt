@@ -1,6 +1,9 @@
 package com.jamgu.krouter.annotation
 
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+/**
+ * Created by jamgu on 2021/08/21
+ */
+@Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.BINARY)
 annotation class KRouter(
     val value: Array<String>,
