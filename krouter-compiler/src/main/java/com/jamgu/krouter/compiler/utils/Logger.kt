@@ -6,7 +6,7 @@ import javax.tools.Diagnostic
 /**
  * Created by jamgu on 2021/08/24
  */
-class Logger(private val msg: Messager, private val loggable: Boolean) {
+internal class Logger(private val msg: Messager, private val loggable: Boolean) {
 
     fun notify(info: CharSequence) {
         if (info.isNotEmpty()) {

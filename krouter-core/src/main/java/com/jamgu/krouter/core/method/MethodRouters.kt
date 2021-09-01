@@ -14,7 +14,7 @@ object MethodRouters {
     private val sMethodMapping: ArrayList<Mapping> = ArrayList()
 
     @JvmStatic
-    fun mapMethod(authority: String, invoker: IMethodInvoker) {
+    fun <T> mapMethod(authority: String, invoker: IMethodInvoker) {
         sMethodMapping.add(Mapping(authority, null, null, invoker, null))
     }
 
@@ -23,19 +23,19 @@ object MethodRouters {
 
     @JvmStatic
     @JvmOverloads
-    fun <T> invoke(url: String, map: HashMap<Any, Any>? = null, callback: IMethodCallback<Any>? = null) =
-        invoke<T>(Uri.parse((url)), map, callback, null)
+    fun <T> invoke(url: String, map: HashMap<Any, Any>? = null, callback: IMethodCallback<T>? = null) =
+        invoke(Uri.parse((url)), map, callback, null)
 
     @JvmStatic
-    fun <T> invoke(uri: Uri, map: HashMap<Any, Any>?, callback: IMethodCallback<Any>?, monitor: IMethodRouterMonitor?) =
-        invoke<T>(MethodRouterParam.Builder()
+    fun <T> invoke(uri: Uri, map: HashMap<Any, Any>?, callback: IMethodCallback<T>?, monitor: IMethodRouterMonitor?) =
+        invoke(MethodRouterParam.Builder<T>()
                 .uri(uri)
                 .map(map)
                 .monitor(monitor)
                 .callback(callback)
                 .build())
 
-    private fun <T> invoke(param: MethodRouterParam): T? {
+    private fun <T> invoke(param: MethodRouterParam<T>): T? {
         val uri = param.getUri() ?: return null
 
         val map = param.getMap()
@@ -59,11 +59,11 @@ object MethodRouters {
         return result
     }
 
-    private fun <T> doInvokeMethod(uri: Uri, map: HashMap<Any, Any>?, callback: IMethodCallback<Any>?): T? {
+    private fun <T> doInvokeMethod(uri: Uri, map: HashMap<Any, Any>?, callback: IMethodCallback<T>?): T? {
         val path = Path.create(uri)
         sMethodMapping.forEach{
             if (it.match(path)) {
-                return it.methodInvoker?.invoke<T>(map, callback)
+                return it.methodInvoker?.invoke(map, callback)
             }
         }
         return null

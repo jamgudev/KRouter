@@ -51,6 +51,7 @@ internal class RouterMappingCodeWriter(
 
                     // mapping
                     addUriMappingStatement(entity, this, paramTypeName)
+                    addCode("\n")
 
                 }
                 this

@@ -7,6 +7,6 @@ package com.jamgu.krouter.core.method
  */
 interface IMethodCallback<T> {
 
-    fun onInvokeFinish(t: T)
+    fun onInvokeFinish(data: T)
 
 }

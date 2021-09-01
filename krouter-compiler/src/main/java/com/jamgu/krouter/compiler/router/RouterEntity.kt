@@ -6,7 +6,7 @@ import javax.lang.model.type.TypeMirror
 /**
  * Created by jamgu on 2021/08/22
  */
-internal class RouterEntity {
+internal open class RouterEntity {
     var value: Array<String>? = null
 
     var stringParams: Array<String>? = null

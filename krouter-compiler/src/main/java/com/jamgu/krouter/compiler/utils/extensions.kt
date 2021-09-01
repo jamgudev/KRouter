@@ -8,7 +8,7 @@ import javax.lang.model.type.TypeMirror
 /**
  * Created by jamgu on 2021/08/22
  */
-fun isSubtypeOfType(typeMirror: TypeMirror?, otherType: String?): Boolean {
+internal fun isSubtypeOfType(typeMirror: TypeMirror?, otherType: String?): Boolean {
     if (typeMirror == null || otherType?.isEmpty() == true) {
         return false
     }

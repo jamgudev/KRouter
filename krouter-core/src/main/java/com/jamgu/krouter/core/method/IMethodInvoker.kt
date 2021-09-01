@@ -7,6 +7,6 @@ package com.jamgu.krouter.core.method
  */
 interface IMethodInvoker {
 
-    fun<T> invoke(map: HashMap<Any, Any>?, callback: IMethodCallback<Any>?): T
+    fun<T> invoke(map: Map<Any, Any>?, callback: IMethodCallback<T>?): T
 
 }

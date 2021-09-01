@@ -3,14 +3,13 @@ package com.jamgu.krouter.compiler.utils
 /**
  * Created by jamgu on 2021/08/24
  */
-object Constants {
+internal object Constants {
 
     const val PROJECT_NAME = "KRouter"
-    const val KROUTER_MAP_ENTER_CLASS_NAME = "KRouters"     // KRouters.map..
-    const val KROUTER_PARAMTYPES_NAME = "ParamTypes"
-    const val KROUTER_INTERFACE_NAME = "IKRouterMapping"
+    const val KROUTER_METHOD_MAP_ENTER_CLASS_NAME = "MethodRouters"     // KRouters.map..
 
     const val GENERATED_CLASS_NAME_PREFIX = "KRouterMapping"
+    const val GENERATED_METHOD_ROUTER_CLASS_NAME_PREFIX = "MethodRouterMapping"
 
     // log
     const val PREFIX_OF_LOGGER = "$PROJECT_NAME::compiler >>> "

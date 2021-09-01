@@ -13,5 +13,5 @@ java {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.squareup:javapoet:1.10.0'
-    implementation "io.github.jamgudev:krouter-annotation:1.0.1"
+    implementation "io.github.jamgudev:krouter-annotation:1.0.2"
 }

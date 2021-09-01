@@ -17,7 +17,7 @@ import javax.lang.model.util.Types
 /**
  * Created by jamgu on 2021/08/24
  */
-abstract class BaseProcessor: AbstractProcessor() {
+internal abstract class BaseProcessor: AbstractProcessor() {
 
     protected var mFiler: Filer? = null
     protected var mLogger: Logger? = null
@@ -44,7 +44,6 @@ abstract class BaseProcessor: AbstractProcessor() {
             mLogger = Logger(it.messager, loggable)
 
             if (moduleName?.isNotEmpty() == true) {
-                mLogger?.info("detected module name, it was [$moduleName]")
                 moduleName = moduleName?.replace("[^0-9a-zA-Z_]+".toRegex(),
                     "")?.capitalize(Locale.getDefault())
             } else {

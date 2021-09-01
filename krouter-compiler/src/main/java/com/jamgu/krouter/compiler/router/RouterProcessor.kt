@@ -11,7 +11,7 @@ import javax.lang.model.element.TypeElement
 /**
  * Created by jamgu on 2021/08/22
  */
-class RouterProcessor: BaseProcessor() {
+internal class RouterProcessor: BaseProcessor() {
 
     private val entities: ArrayList<RouterEntity> by lazy { ArrayList() }
 
@@ -57,7 +57,7 @@ class RouterProcessor: BaseProcessor() {
                     routerEntity.classNameTypeMirror = element.asType()
                 }
                 else -> {
-                    mLogger?.error("${kRouter.javaClass.simpleName} only support CLASS type.")
+                    mLogger?.error("${kRouter.javaClass.simpleName} only support Class type.")
                     return true
                 }
             }
@@ -68,7 +68,7 @@ class RouterProcessor: BaseProcessor() {
         // write to java file
         RouterMappingCodeWriter(mLogger, entities, moduleName, mFiler).write()
 
-        mLogger?.notify("[$moduleName] router process finished, cost time: ${System.currentTimeMillis() - start}ms.")
+        mLogger?.info("[$moduleName] RouterProcessor finished, cost time: ${System.currentTimeMillis() - start}ms.")
 
         return true
     }
