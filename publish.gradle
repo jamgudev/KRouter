@@ -43,6 +43,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
+// fix: javadoc: error - Illegal package name: "*.kt"
+tasks.withType(Javadoc).all {
+    enabled = false
+}
+
 // add javadoc/source jar tasks as artifacts
 artifacts {
     archives javadocJar
