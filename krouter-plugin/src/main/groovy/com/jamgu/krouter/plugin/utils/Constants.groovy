@@ -11,11 +11,11 @@ class Constants {
         /**
          * default router core version
          */
-        static final String DEFAULT_ROUTER_CORE_VERSION = "1.0.2"
+        static final String DEFAULT_ROUTER_CORE_VERSION = "1.0.3"
         /**
          * default router compiler version
          */
-        static final String DEFAULT_ROUTER_COMPILER_VERSION = "1.0.2"
+        static final String DEFAULT_ROUTER_COMPILER_VERSION = "1.0.3"
         /**
          * router core version defined by user
          */
