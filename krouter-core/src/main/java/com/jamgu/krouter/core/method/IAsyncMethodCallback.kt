@@ -5,7 +5,7 @@ package com.jamgu.krouter.core.method
  *
  * a callback interface that will be called after method invoked
  */
-interface IMethodCallback<T> {
+interface IAsyncMethodCallback<T> {
 
     fun onInvokeFinish(data: T)
 

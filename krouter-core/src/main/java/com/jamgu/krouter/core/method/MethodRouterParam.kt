@@ -19,7 +19,7 @@ internal class MethodRouterParam<T> private constructor(private val builder: Bui
         var uri: Uri? = null
         var map: HashMap<Any, Any>? = null
         var monitor: IMethodRouterMonitor? = null
-        var callback: IMethodCallback<T>? = null
+        var callback: IAsyncMethodCallback<T>? = null
 
         fun uri(uri: Uri): Builder<T> {
             this.uri = uri
@@ -36,7 +36,7 @@ internal class MethodRouterParam<T> private constructor(private val builder: Bui
             return this
         }
 
-        fun callback(callback: IMethodCallback<T>?): Builder<T> {
+        fun callback(callback: IAsyncMethodCallback<T>?): Builder<T> {
             this.callback = callback
             return this
         }

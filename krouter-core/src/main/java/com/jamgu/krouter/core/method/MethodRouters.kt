@@ -15,7 +15,24 @@ object MethodRouters {
 
     @JvmStatic
     fun <T> mapMethod(authority: String, invoker: IMethodInvoker) {
+        removeIfExists(authority)
         sMethodMapping.add(Mapping(authority, null, null, invoker, null))
+    }
+
+    private fun removeIfExists(authority: String) {
+        var foundIdx = -1
+        run outForeach@{
+            sMethodMapping.forEachIndexed { idx, it ->
+                if (it.authority == authority) {
+                    foundIdx = idx
+                    return@outForeach
+                }
+            }
+        }
+
+        if (foundIdx > -1) {
+            sMethodMapping.removeAt(foundIdx)
+        }
     }
 
     @JvmStatic
@@ -23,11 +40,11 @@ object MethodRouters {
 
     @JvmStatic
     @JvmOverloads
-    fun <T> invoke(url: String, map: HashMap<Any, Any>? = null, callback: IMethodCallback<T>? = null) =
+    fun <T> invoke(url: String, map: HashMap<Any, Any>? = null, callback: IAsyncMethodCallback<T>? = null) =
         invoke(Uri.parse((url)), map, callback, null)
 
     @JvmStatic
-    fun <T> invoke(uri: Uri, map: HashMap<Any, Any>?, callback: IMethodCallback<T>?, monitor: IMethodRouterMonitor?) =
+    fun <T> invoke(uri: Uri, map: HashMap<Any, Any>?, callback: IAsyncMethodCallback<T>?, monitor: IMethodRouterMonitor?) =
         invoke(MethodRouterParam.Builder<T>()
                 .uri(uri)
                 .map(map)
@@ -59,7 +76,7 @@ object MethodRouters {
         return result
     }
 
-    private fun <T> doInvokeMethod(uri: Uri, map: HashMap<Any, Any>?, callback: IMethodCallback<T>?): T? {
+    private fun <T> doInvokeMethod(uri: Uri, map: HashMap<Any, Any>?, callback: IAsyncMethodCallback<T>?): T? {
         val path = Path.create(uri)
         sMethodMapping.forEach{
             if (it.match(path)) {
