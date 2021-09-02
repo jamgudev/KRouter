@@ -60,7 +60,7 @@ internal class MethodRouterMappingCodeWriter(
         val paramString = entity.paramElements?.joinToString {
             when {
                 isSubtypeOfType(it.asType(), "java.util.Map") -> "map"
-                isSubtypeOfType(it.asType(), "com.jamgu.krouter.core.method.IMethodCallback") -> "callback"
+                isSubtypeOfType(it.asType(), "com.jamgu.krouter.core.method.IAsyncMethodCallback") -> "callback"
                 else -> {
                     mLogger?.error("this parameter type@${it.asType()} is not supported.")
                     ""
