@@ -60,7 +60,7 @@ ext {
 	krouter_compiler_version = 1.0.3
 	
 	// flag whether to print compiler logs 
-	krouter_compiler_version = false
+	krouter_compile_loggable = false
 }
 ```
 
@@ -151,7 +151,8 @@ val result = MethodRouters.invoke("showHomePageActivity", MethodMapBuilder()
 
 # Contact Me
 
-- [Issues](https://github.com/jamgudev/KRouter/issues) & Emails([826630153@qq.com](826630153@qq.com)) are welcome!
+[Issues](https://github.com/jamgudev/KRouter/issues) & Emails are welcome!
+Email Address: 826630153@qq.com
 
 # License
 
