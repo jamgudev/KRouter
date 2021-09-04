@@ -6,12 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.jamgu.krouter.annotation.KRouter
-import com.jamgu.krouter.core.KRouterUriBuilder
-import com.jamgu.krouter.core.router.IRouterCallback
+import com.jamgu.krouter.core.method.IAsyncMethodCallback
+import com.jamgu.krouter.core.method.MethodMapBuilder
+import com.jamgu.krouter.core.method.MethodRouters
+import com.jamgu.krouter.core.router.IRouterMonitor
+import com.jamgu.krouter.core.router.KRouterUriBuilder
 import com.jamgu.krouter.core.router.KRouters
 import com.jamgu.krouter.core.router.ParamTypes
 
-@KRouter(value = ["main_activty"], intParams = [""])
+@KRouter(value = ["main_activtyss"], intParams = [""])
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -44,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
         KRouters.open(this, KRouterUriBuilder("jamgu")
-                .appendAuthority("other_module_activity")
+                .appendAuthority("test3_activity")
                 .with(INT, "28692")
                 .with(BOOLEAN, true)
                 .with(LONG, "100001")
@@ -54,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 .with(CHAR, 'C')
                 .with(SHORT, 44.toShort())
                 .with(BYTE, "4")
-                .build(), object: IRouterCallback {
+                .build(), object: IRouterMonitor {
             override fun beforeOpen(context: Context, uri: Uri): Boolean {
 
                 Log.d(TAG, "beforeOpen called, uri = $uri")
@@ -64,6 +67,15 @@ class MainActivity : AppCompatActivity() {
 
             override fun afterOpen(context: Context, uri: Uri) {
                 Log.d(TAG, "afterOpen called, uri = $uri")
+            }
+
+        })
+
+        val isTrue: Boolean? = MethodRouters.invoke("add_some", MethodMapBuilder()
+                    .with("aaa", "bbb")
+                    .build(), object: IAsyncMethodCallback<Boolean> {
+            override fun onInvokeFinish(data: Boolean) {
+
             }
 
         })

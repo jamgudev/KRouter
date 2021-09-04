@@ -5,11 +5,12 @@ plugins {
     id 'com.jamgu.krouter.plugin'
 }
 
-kapt {
-    arguments {
-        arg("KRouter_Module_Name", project.getName())
-    }
-}
+//kapt {
+//    arguments {
+//        arg("KRouter_Module_Name", project.getName())
+//        arg("KRouter_Compile_Loggable", true)
+//    }
+//}
 
 android {
     compileSdkVersion 30
@@ -53,13 +54,15 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    implementation project(path: ':krouter-core')
-    implementation project(path: ':test_androidmodule')
-    kapt project(path: ':krouter-compiler')
+//    implementation project(path: ':krouter-core')
+//    kapt project(path: ':krouter-compiler')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-//    implementation "io.github.jamgudev:krouter-api:1.0.0"
-//    kapt "io.github.jamgudev:krouter-compiler:1.0.0"
+//    implementation project(path: ':krouter-core')
+//    implementation project(path: ':test_androidmodule')
+//    kapt project(path: ':krouter-compiler')
+//    implementation "io.github.jamgudev:krouter-core:1.0.1"
+//    kapt "io.github.jamgudev:krouter-compiler:1.0.1"
 }
