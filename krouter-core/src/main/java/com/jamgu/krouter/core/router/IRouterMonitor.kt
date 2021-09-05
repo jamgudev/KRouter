@@ -5,6 +5,9 @@ import android.net.Uri
 
 /**
  * Created by jamgu on 2021/08/21
+ *
+ * monitor that will be called before/after router open,
+ * call onError() if uri not found or error caught.
  */
 interface IRouterMonitor {
 
