@@ -11,6 +11,9 @@ import android.net.Uri
  */
 interface IRouterMonitor {
 
+    /**
+     * intercept if return true, return false by default.
+     */
     fun beforeOpen(context: Context, uri: Uri): Boolean = false
 
     fun afterOpen(context: Context, uri: Uri) {}

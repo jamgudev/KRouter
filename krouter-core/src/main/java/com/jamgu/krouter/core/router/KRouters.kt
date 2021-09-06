@@ -20,6 +20,8 @@ object KRouters {
 
     private val sMapping = ArrayList<Mapping>()
 
+    private val sGlobalActivityMonitors by lazy { ArrayList<IRouterInterceptor>() }
+
     @JvmStatic
     fun mapActivity(authority: String, activity: Class<out Activity>, paramTypes: ParamTypes?) {
         sMapping.add(Mapping(authority, null, activity, paramTypes))
@@ -32,26 +34,31 @@ object KRouters {
 
     @JvmStatic
     @JvmOverloads
-    fun open(context: Context, url: String, bundle: Bundle? = null, monitor: IRouterMonitor? = null) =
-        open(context, Uri.parse(url), bundle, monitor)
+    fun open(context: Context, url: String, bundle: Bundle? = null, monitor: IRouterMonitor? = null,
+             isBlockGlobalMonitor: Boolean = false) =
+        open(context, Uri.parse(url), bundle, monitor, isBlockGlobalMonitor)
 
     @JvmStatic
     @JvmOverloads
-    fun open(context: Context, url: Uri, bundle: Bundle? = null, monitor: IRouterMonitor? = null) =
-        open(context, url, bundle, -1, monitor)
+    fun open(context: Context, url: Uri, bundle: Bundle? = null, monitor: IRouterMonitor? = null,
+             isBlockGlobalMonitor: Boolean = false) =
+        open(context, url, bundle, -1, monitor, isBlockGlobalMonitor)
 
     @JvmStatic
     @JvmOverloads
-    fun openForResult(context: Context, url: String, requestCode: Int?, bundle: Bundle? = null, monitor: IRouterMonitor? = null) =
-        open(context, Uri.parse(url), bundle, requestCode, monitor)
+    fun openForResult(context: Context, url: String, requestCode: Int?, bundle: Bundle? = null,
+                      monitor: IRouterMonitor? = null, isBlockGlobalMonitor: Boolean = false) =
+        open(context, Uri.parse(url), bundle, requestCode, monitor, isBlockGlobalMonitor)
 
     @JvmStatic
     @JvmOverloads
-    fun openForResult(context: Context, uri: Uri, requestCode: Int?, bundle: Bundle? = null, monitor: IRouterMonitor? = null) =
-        open(context, uri, bundle, requestCode, monitor)
+    fun openForResult(context: Context, uri: Uri, requestCode: Int?, bundle: Bundle? = null,
+                      monitor: IRouterMonitor? = null, isBlockGlobalMonitor: Boolean = false) =
+        open(context, uri, bundle, requestCode, monitor, isBlockGlobalMonitor)
 
     @JvmStatic
-    fun open(context: Context, url: Uri, bundle: Bundle?, requestCode: Int?, monitor: IRouterMonitor?) =
+    fun open(context: Context, url: Uri, bundle: Bundle?, requestCode: Int?, monitor: IRouterMonitor?,
+             isBlockGlobalMonitor: Boolean = false) =
         open(
             RouterParam.Builder()
                     .context(context)
@@ -59,6 +66,7 @@ object KRouters {
                     .bundle(bundle)
                     .routerMonitor(monitor)
                     .requestCode(requestCode)
+                    .isBlockGlobalMonitor(isBlockGlobalMonitor)
                     .build()
         )
 
@@ -78,6 +86,16 @@ object KRouters {
     @JvmOverloads
     fun createFragment(context: Context, url: Uri, bundle: Bundle? = null): Fragment? =
         createFragmentInner(context, url, bundle)
+
+    @JvmStatic
+    fun registerGlobalInterceptor(monitor: IRouterInterceptor?) {
+        monitor?.let { sGlobalActivityMonitors.add(it) }
+    }
+
+    @JvmStatic
+    fun unregisterGlobalInterceptor(monitor: IRouterInterceptor?) {
+        monitor?.let { sGlobalActivityMonitors.remove(it) }
+    }
 
     private fun getRawIntentInner(context: Context, uri: Uri, bundle: Bundle?): Intent? {
         initializeIfNeed(context)
@@ -130,6 +148,15 @@ object KRouters {
         return null
     }
 
+    private fun onGlobalIntercept(uri: Uri, bundle: Bundle?): Boolean {
+        var intercept = false
+        sGlobalActivityMonitors.forEach {
+            intercept = it.intercept(uri, bundle)
+        }
+
+        return intercept
+    }
+
     private fun open(routerParam: RouterParam): Boolean {
         val context = routerParam.getContext() ?: return false
         val uri = routerParam.getUri() ?: return false
@@ -137,8 +164,10 @@ object KRouters {
         val bundle = routerParam.getBundle()
         val routerCallback = routerParam.getRouterCallback()
         val requestCode = routerParam.getRequestCode()
+        val isBlockGlobal = routerParam.getIsBlockGlobalMonitor()
 
-        if (routerCallback?.beforeOpen(context, uri) == true) {
+        if ((isBlockGlobal == false && onGlobalIntercept(uri, bundle))
+                || routerCallback?.beforeOpen(context, uri) == true) {
             return false
         }
 

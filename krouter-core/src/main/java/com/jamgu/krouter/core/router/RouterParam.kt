@@ -19,12 +19,15 @@ internal class RouterParam private constructor(private val builder: Builder) {
 
     fun getRouterCallback(): IRouterMonitor? = this.builder.routerMonitor
 
+    fun getIsBlockGlobalMonitor(): Boolean? = this.builder.isBlockGlobalMonitor
+
     internal class Builder {
         var context: Context? = null
         var uri: Uri? = null
         var requestCode: Int? = -1
         var routerMonitor: IRouterMonitor? = null
         var bundle: Bundle? = null
+        var isBlockGlobalMonitor: Boolean? = false
 
         fun context(context: Context?): Builder {
             this.context = context
@@ -48,6 +51,11 @@ internal class RouterParam private constructor(private val builder: Builder) {
 
         fun bundle(bundle: Bundle?): Builder {
             this.bundle = bundle
+            return this
+        }
+
+        fun isBlockGlobalMonitor(isBlock: Boolean?): Builder {
+            this.isBlockGlobalMonitor = isBlock
             return this
         }
 
