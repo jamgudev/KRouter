@@ -1,6 +1,7 @@
 package com.jamgu.krouter.core.method
 
 import android.net.Uri
+import android.util.Log
 import com.jamgu.krouter.core.Mapping
 import com.jamgu.krouter.core.Path
 
@@ -31,20 +32,19 @@ object MethodRouters {
         }
 
         if (foundIdx > -1) {
-            sMethodMapping.removeAt(foundIdx)
+            val removedItem = sMethodMapping.removeAt(foundIdx)
+            Log.d(TAG, "remove duplicated method router@$removedItem")
         }
     }
 
     @JvmStatic
-    fun <T> invoke(uri: Uri) = invoke<T>(uri, null, null, null)
+    @JvmOverloads
+    fun <T> invoke(url: String, map: HashMap<Any, Any>? = null, callback: IAsyncMethodCallback<T>? = null, monitor: IMethodRouterMonitor? = null) =
+        invoke(Uri.parse((url)), map, callback, monitor)
 
     @JvmStatic
     @JvmOverloads
-    fun <T> invoke(url: String, map: HashMap<Any, Any>? = null, callback: IAsyncMethodCallback<T>? = null) =
-        invoke(Uri.parse((url)), map, callback, null)
-
-    @JvmStatic
-    fun <T> invoke(uri: Uri, map: HashMap<Any, Any>?, callback: IAsyncMethodCallback<T>?, monitor: IMethodRouterMonitor?) =
+    fun <T> invoke(uri: Uri, map: HashMap<Any, Any>? = null, callback: IAsyncMethodCallback<T>? = null, monitor: IMethodRouterMonitor? = null) =
         invoke(MethodRouterParam.Builder<T>()
                 .uri(uri)
                 .map(map)
@@ -65,7 +65,7 @@ object MethodRouters {
 
         var result: T? = null
         try {
-            result = doInvokeMethod<T>(uri, map, callback)
+            result = doInvokeMethod(uri, map, callback)
         } catch (e: Exception) {
             monitor?.onError("${e.message}", e)
             return result
