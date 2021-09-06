@@ -1,6 +1,7 @@
 
 # Features
 
+- 支持通过路由获取intent
 - 支持方法注解，通过路由调用方法
 - 支持给fragment注解，通过路由获取fragment实例
 - 支持通过注解配置Activity跳转
@@ -11,7 +12,7 @@
 
 module|krouter-core|krouter-compiler|krouter-annotation|krouter-plugin
 ---|---|---|---|---
-version|[![Download](https://img.shields.io/badge/krouter--core-v1.0.3-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.3/aar)|[![Download](https://img.shields.io/badge/krouter--compiler-v1.0.3-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.3/jar)|[![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar)|[![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.4/jar)
+version|[![Download](https://img.shields.io/badge/krouter--core-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.4/aar)|[![Download](https://img.shields.io/badge/krouter--compiler-v1.0.3-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.3/jar)|[![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar)|[![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.4/jar)
 
 # Quick Setup
 
@@ -56,8 +57,8 @@ If you want to configure the dependence version on your own, add below code to y
 
 ```
 ext {
-	krouter_core_version = 1.0.3 // edit the version number you need
-	krouter_compiler_version = 1.0.3
+	krouter_core_version = "1.0.4" // edit the version number you need
+	krouter_compiler_version = "1.0.3"
 	
 	// flag whether to print compiler logs 
 	krouter_compile_loggable = false
@@ -152,6 +153,7 @@ val result = MethodRouters.invoke("showHomePageActivity", MethodMapBuilder()
 # Contact Me
 
 [Issues](https://github.com/jamgudev/KRouter/issues) & Emails are welcome!
+
 Email Address: 826630153@qq.com
 
 # License
