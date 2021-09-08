@@ -65,14 +65,19 @@ internal class MethodRouterProcessor: BaseProcessor() {
     private fun checkParams(entity: MethodRouterEntity, paramElements: List<VariableElement>?): Boolean {
         val element = paramElements ?: return false
 
+        if (element.size > 2) {
+            mLogger?.error("methodRouter@(\"${entity.value}\"): the number of parameters cannot exceed 2.")
+            return false
+        }
+
         var mapCount = 0
         var callbackCount = 0
         element.forEach{
             val isCallback = isSubtypeOfType(it.asType(), "com.jamgu.krouter.core.method.IAsyncMethodCallback")
             val isMap = isSubtypeOfType(it.asType(), "java.util.Map")
             if (!isCallback && !isMap) {
-                mLogger?.error("methodRouter@(${entity.value}): type of parameters error, " +
-                        "only support sub type of (IAsyncMethodCallback, Map).")
+                mLogger?.error("methodRouter@(\"${entity.value}\"): type of parameters error, " +
+                        "only support sub type of (IAsyncMethodCallback, Map). found parameter type: ${it.asType()}")
                 return false
             }
             if (isMap && ++mapCount > 1) {
