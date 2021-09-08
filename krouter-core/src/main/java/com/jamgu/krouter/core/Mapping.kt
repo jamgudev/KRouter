@@ -23,7 +23,7 @@ internal class Mapping(
 ) {
 
     companion object {
-        const val TAG = "Mapping"
+        val TAG: String = this::class.java.simpleName
     }
 
     constructor(authority: String?, fragment: Class<out Fragment>?, activity: Class<out Activity>?, paramTypes: ParamTypes?) :

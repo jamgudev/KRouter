@@ -33,24 +33,36 @@ object MethodRouters {
 
         if (foundIdx > -1) {
             val removedItem = sMethodMapping.removeAt(foundIdx)
-            Log.d(TAG, "remove duplicated method router@$removedItem")
+            Log.d(TAG, "remove duplicated method router@(\"${removedItem.authority}\")")
         }
     }
 
     @JvmStatic
     @JvmOverloads
-    fun <T> invoke(url: String, map: HashMap<Any, Any>? = null, callback: IAsyncMethodCallback<T>? = null, monitor: IMethodRouterMonitor? = null) =
+    fun <T> invoke(
+        url: String,
+        map: HashMap<Any, Any>? = null,
+        callback: IAsyncMethodCallback<T>? = null,
+        monitor: IMethodRouterMonitor? = null
+    ) =
         invoke(Uri.parse((url)), map, callback, monitor)
 
     @JvmStatic
     @JvmOverloads
-    fun <T> invoke(uri: Uri, map: HashMap<Any, Any>? = null, callback: IAsyncMethodCallback<T>? = null, monitor: IMethodRouterMonitor? = null) =
-        invoke(MethodRouterParam.Builder<T>()
-                .uri(uri)
-                .map(map)
-                .monitor(monitor)
-                .callback(callback)
-                .build())
+    fun <T> invoke(
+        uri: Uri,
+        map: HashMap<Any, Any>? = null,
+        callback: IAsyncMethodCallback<T>? = null,
+        monitor: IMethodRouterMonitor? = null
+    ) =
+        invoke(
+            MethodRouterParam.Builder<T>()
+                    .uri(uri)
+                    .map(map)
+                    .monitor(monitor)
+                    .callback(callback)
+                    .build()
+        )
 
     private fun <T> invoke(param: MethodRouterParam<T>): T? {
         val uri = param.getUri() ?: return null
@@ -67,7 +79,8 @@ object MethodRouters {
         try {
             result = doInvokeMethod(uri, map, callback)
         } catch (e: Exception) {
-            monitor?.onError("${e.message}", e)
+            monitor?.onError("Method[$uri]: ${e.message}", e)
+            Log.e(TAG, "Method[$uri]: ${e.message}")
             return result
         }
 
@@ -78,7 +91,7 @@ object MethodRouters {
 
     private fun <T> doInvokeMethod(uri: Uri, map: HashMap<Any, Any>?, callback: IAsyncMethodCallback<T>?): T? {
         val path = Path.create(uri)
-        sMethodMapping.forEach{
+        sMethodMapping.forEach {
             if (it.match(path)) {
                 return it.methodInvoker?.invoke(map, callback)
             }

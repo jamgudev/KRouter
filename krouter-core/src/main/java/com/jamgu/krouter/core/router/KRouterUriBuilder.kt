@@ -12,7 +12,7 @@ open class KRouterUriBuilder
     @JvmOverloads constructor(scheme: String = KROUTER_SCHEME_NAME) {
 
     companion object {
-        const val TAG = "RouterUriBuilder"
+        val TAG: String = this::class.java.simpleName
     }
 
     private val builder = Uri.Builder()
