@@ -1,3 +1,10 @@
+#### [README-CN](https://blog.csdn.net/qq_40987010/article/details/120190404)
+
+#### Latest version
+
+| module  | krouter-core                                                 | krouter-compiler                                             | krouter-annotation                                           | krouter-plugin                                               |
+| ------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| version | [![Download](https://img.shields.io/badge/krouter--core-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.5/aar) | [![Download](https://img.shields.io/badge/krouter--compiler-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.4/jar) | [![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar) | [![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.4/jar) |
 
 # Features
 
@@ -7,12 +14,6 @@
 - 支持通过注解配置Activity跳转
 - 支持多模块项目
 - 支持增量编译，减小编译时间消耗
-
-#### Latest version
-
-module|krouter-core|krouter-compiler|krouter-annotation|krouter-plugin
----|---|---|---|---
-version|[![Download](https://img.shields.io/badge/krouter--core-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.4/aar)|[![Download](https://img.shields.io/badge/krouter--compiler-v1.0.3-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.3/jar)|[![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar)|[![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.4/jar)
 
 # Quick Setup
 
@@ -57,8 +58,8 @@ If you want to configure the dependence version on your own, add below code to y
 
 ```
 ext {
-	krouter_core_version = "1.0.4" // edit the version number you need
-	krouter_compiler_version = "1.0.3"
+	krouter_core_version = "1.0.5" // edit the version number you need
+	krouter_compiler_version = "1.0.4"
 	
 	// flag whether to print compiler logs 
 	krouter_compile_loggable = false
@@ -148,6 +149,40 @@ class HomePageActivity : AppCompatActivity() {
 val result = MethodRouters.invoke("showHomePageActivity", MethodMapBuilder()
                 .with("aaa", "123456")
                 .build())
+```
+
+**全局路由拦截器**
+
+```kotlin
+
+registerGlobalInterceptor(object : IRouterInterceptor {
+    override fun intercept(uri: Uri, bundle: Bundle?): Boolean {
+        // intercept if return true, invalid when isBlockGlobalMonitor was true
+        return false
+    }
+})
+
+```
+
+**单次路由监听**
+
+```kotlin
+
+KRouters.open(context, "uri", null, object : IRouterMonitor {
+    override fun beforeOpen(context: Context, uri: Uri): Boolean {
+        // intercept if return true, return false by default.
+        return super.beforeOpen(context, uri)
+    }
+
+    override fun afterOpen(context: Context, uri: Uri) {
+        super.afterOpen(context, uri)
+    }
+
+    override fun onError(context: Context, msg: String, e: Throwable?) {
+        super.onError(context, msg, e)
+    }
+})
+
 ```
 
 # Contact Me
