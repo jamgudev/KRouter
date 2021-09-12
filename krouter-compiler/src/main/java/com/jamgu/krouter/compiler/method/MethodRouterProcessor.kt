@@ -58,7 +58,7 @@ internal class MethodRouterProcessor: BaseProcessor() {
         MethodRouterMappingCodeWriter(mLogger, methodRouters, moduleName, mFiler).write()
 
 
-        mLogger?.info("[$moduleName] MethodRouterProcessor finished, cost time: ${System.currentTimeMillis() - start}ms.")
+        mLogger?.info("($moduleName) MethodRouterProcessor finished, cost time: ${System.currentTimeMillis() - start}ms.")
         return true
     }
 

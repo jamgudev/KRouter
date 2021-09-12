@@ -68,7 +68,7 @@ internal class RouterProcessor: BaseProcessor() {
         // write to java file
         RouterMappingCodeWriter(mLogger, entities, moduleName, mFiler).write()
 
-        mLogger?.info("[$moduleName] RouterProcessor finished, cost time: ${System.currentTimeMillis() - start}ms.")
+        mLogger?.info("($moduleName) RouterProcessor finished, cost time: ${System.currentTimeMillis() - start}ms.")
 
         return true
     }

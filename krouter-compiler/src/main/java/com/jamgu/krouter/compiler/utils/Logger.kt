@@ -10,13 +10,13 @@ internal class Logger(private val msg: Messager, private val loggable: Boolean) 
 
     fun notify(info: CharSequence) {
         if (info.isNotEmpty()) {
-            println(Constants.PREFIX_OF_LOGGER + info)
+            println(Constants.PREFIX_OF_LOGGER + " info: [$info]")
         }
     }
 
     fun info(info: CharSequence) {
         if (info.isNotEmpty() && loggable) {
-            println(Constants.PREFIX_OF_LOGGER + info)
+            println(Constants.PREFIX_OF_LOGGER + " info: [$info]")
 //            msg.printMessage(Diagnostic.Kind.NOTE, Constants.PREFIX_OF_LOGGER + info + "\n")
         }
     }
@@ -25,7 +25,7 @@ internal class Logger(private val msg: Messager, private val loggable: Boolean) 
         if (error.isNotEmpty()) {
             msg.printMessage(
                 Diagnostic.Kind.ERROR,
-                Constants.PREFIX_OF_LOGGER + "an exception is encountered, [" + error + "]"
+                Constants.PREFIX_OF_LOGGER + " error: [$error]"
             )
         }
     }
@@ -34,7 +34,7 @@ internal class Logger(private val msg: Messager, private val loggable: Boolean) 
         if (null != error) {
             msg.printMessage(
                 Diagnostic.Kind.ERROR,
-                Constants.PREFIX_OF_LOGGER + "an exception is encountered, [" + error.message + "]" + "\n" + formatStackTrace(
+                Constants.PREFIX_OF_LOGGER + " error: [$error.message]" + "\n" + formatStackTrace(
                     error.stackTrace
                 )
             )
@@ -43,7 +43,7 @@ internal class Logger(private val msg: Messager, private val loggable: Boolean) 
 
     fun warning(warning: CharSequence) {
         if (warning.isNotEmpty() && loggable) {
-            msg.printMessage(Diagnostic.Kind.WARNING, Constants.PREFIX_OF_LOGGER + warning)
+            msg.printMessage(Diagnostic.Kind.WARNING, Constants.PREFIX_OF_LOGGER + " warn: [$warning]")
         }
     }
 

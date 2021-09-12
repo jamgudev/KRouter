@@ -29,7 +29,7 @@ internal class MergeRouterProcessor : BaseProcessor() {
             it.process(annotations, roundEnvironment)
         }
 
-        mLogger?.notify("[$moduleName] all processes finished, cost time: ${System.currentTimeMillis() - start}ms.")
+        mLogger?.notify("($moduleName) All processes finished, cost time: ${System.currentTimeMillis() - start}ms.")
 
         return true
     }
