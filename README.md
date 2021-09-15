@@ -4,7 +4,7 @@
 
 | module  | krouter-core                                                 | krouter-compiler                                             | krouter-annotation                                           | krouter-plugin                                               |
 | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| version | [![Download](https://img.shields.io/badge/krouter--core-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.5/aar) | [![Download](https://img.shields.io/badge/krouter--compiler-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.4/jar) | [![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar) | [![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.4-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.4/jar) |
+| version | [![Download](https://img.shields.io/badge/krouter--core-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.5/aar) | [![Download](https://img.shields.io/badge/krouter--compiler-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.5/jar) | [![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar) | [![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.5/jar) |
 
 # Features
 
@@ -22,7 +22,7 @@ Edit your **project's build.gradle** file and add classpath below.
 ```
 buildscript {
     dependencies {
-        classpath "io.github.jamgudev:krouter-plugin:1.0.4"
+        classpath "io.github.jamgudev:krouter-plugin:1.0.5"
     }
 }
 ```
@@ -59,7 +59,7 @@ If you want to configure the dependence version on your own, add below code to y
 ```
 ext {
 	krouter_core_version = "1.0.5" // edit the version number you need
-	krouter_compiler_version = "1.0.4"
+	krouter_compiler_version = "1.0.5"
 	
 	// flag whether to print compiler logs 
 	krouter_compile_loggable = false
