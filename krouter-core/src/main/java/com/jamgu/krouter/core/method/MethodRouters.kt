@@ -33,7 +33,7 @@ object MethodRouters {
 
         if (foundIdx > -1) {
             val removedItem = sMethodMapping.removeAt(foundIdx)
-            Log.d(TAG, "remove duplicated method router@(\"${removedItem.authority}\")")
+//            Log.d(TAG, "remove duplicated method router@(\"${removedItem.authority}\")")
         }
     }
 
@@ -80,7 +80,7 @@ object MethodRouters {
             result = doInvokeMethod(uri, map, callback)
         } catch (e: Exception) {
             monitor?.onError("Method[$uri]: ${e.message}", e)
-            Log.e(TAG, "Method[$uri]: ${e.message}")
+//            Log.e(TAG, "Method[$uri]: ${e.message}")
             return result
         }
 
