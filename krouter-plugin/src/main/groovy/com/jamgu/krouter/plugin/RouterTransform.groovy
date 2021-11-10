@@ -143,7 +143,7 @@ class RouterTransform extends Transform {
                     " start to insert register code to this file")
             Knife.handle()
         } else {
-            Logger.warn("register target file not found.")
+            Logger.warning("register target file not found.")
         }
         Logger.notify("transform finished, cost time: ${(System.currentTimeMillis() - begin)}ms.")
     }
