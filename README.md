@@ -4,7 +4,7 @@
 
 | module  | krouter-core                                                 | krouter-compiler                                             | krouter-annotation                                           | krouter-plugin                                               |
 | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| version | [![Download](https://img.shields.io/badge/krouter--core-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.5/aar) | [![Download](https://img.shields.io/badge/krouter--compiler-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.5/jar) | [![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar) | [![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.5/jar) |
+| version | [![Download](https://img.shields.io/badge/krouter--core-v1.0.6-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.6/aar) | [![Download](https://img.shields.io/badge/krouter--compiler-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.5/jar) | [![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar) | [![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.6-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.6/jar) |
 
 # Features
 
@@ -19,17 +19,17 @@
 
 Edit your **project's build.gradle** file and add classpath below.
 
-```
+```groovy
 buildscript {
     dependencies {
-        classpath "io.github.jamgudev:krouter-plugin:1.0.5"
+        classpath "io.github.jamgudev:krouter-plugin:1.0.6"
     }
 }
 ```
 
 And apply krouter-plugin on your **application module**.
 
-```
+```groovy
 plugins {
     id 'com.jamgu.krouter.plugin'
 }
@@ -41,7 +41,7 @@ If you project consists of multiple modules and you want to configure KRouter fo
 
 Add code below to your module's build.gradle file.
 
-```
+```groovy
 plugins {
     id 'com.jamgu.krouter.plugin'
 }
@@ -56,9 +56,9 @@ kapt/annotationProcessor "io.github.jamgudev:krouter-compiler:1.0.3"
 
 If you want to configure the dependence version on your own, add below code to your **project's build.gradle**.
 
-```
+```groovy
 ext {
-	krouter_core_version = "1.0.5" // edit the version number you need
+	krouter_core_version = "1.0.6" // edit the version number you need
 	krouter_compiler_version = "1.0.5"
 	
 	// flag whether to print compiler logs 
@@ -187,7 +187,7 @@ KRouters.open(context, "uri", null, object : IRouterMonitor {
 
 # Contact Me
 
-[Issues](https://github.com/jamgudev/KRouter/issues) & Emails are welcome!
+[Issues](https://github.com/jamgudev/KRouter/issues) & Emails are welcomed!
 
 Email Address: 826630153@qq.com
 
