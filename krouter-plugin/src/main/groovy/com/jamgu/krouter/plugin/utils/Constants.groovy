@@ -11,7 +11,7 @@ class Constants {
         /**
          * default router core version
          */
-        static final String DEFAULT_ROUTER_CORE_VERSION = "1.0.5"
+        static final String DEFAULT_ROUTER_CORE_VERSION = "1.0.6"
         /**
          * default router compiler version
          */
