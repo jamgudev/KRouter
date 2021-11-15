@@ -50,18 +50,23 @@ plugins {
 Krouter-plugin will automatically add dependencies for you. It will edit your Gradle file and add the following dependencies, which means you **don't** need to add them by yourself.
 
 ```
-implementation "io.github.jamgudev:krouter-core:1.0.3"
-kapt/annotationProcessor "io.github.jamgudev:krouter-compiler:1.0.3"
+implementation "io.github.jamgudev:krouter-core:1.0.6"
+// kotlin project
+kapt "io.github.jamgudev:krouter-compiler:1.0.5"
+
+// java module, add below instead.
+// annotationProcessor "io.github.jamgudev:krouter-compiler:1.0.5"
 ```
 
 If you want to configure the dependence version on your own, add below code to your **project's build.gradle**.
 
 ```groovy
 ext {
-	krouter_core_version = "1.0.6" // edit the version number you need
+    // edit the version number you need.
+	krouter_core_version = "1.0.6" 
 	krouter_compiler_version = "1.0.5"
 	
-	// flag whether to print compiler logs 
+	// flag whether to print detail logs of compiler.
 	krouter_compile_loggable = false
 }
 ```
@@ -71,22 +76,21 @@ ext {
 **Activity路由**
 
 ```kotlin
-@KRouter(MainPage.HOST_NAME)
-public class MainActivity extends AppCompatActivity {
+@KRouter(value = [MainPage.HOST_NAME])
+class MainActivity: AppCompatActivity() {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        findViewById(R.id.btn2Home).setOnClickListener(v ->
-                KRouters.openForResult(MainActivity.this, new KRouterUriBuilder("helper")
-                            .appendAuthority(HomePage.HOST_NAME)
-                            .with(HomePage.USER_ID, "12345")
-                            .with(HomePage.GAME_ID, "10001")
-                            .with(HomePage.USER_NAME, "jamgu")
-                            .build(), 10)
-        );
+        findViewById(R.id.btn2Home).setOnClickListener {
+            KRouters.openForResult(MainActivity.this, KRouterUriBuilder("helper")
+                                        .appendAuthority(HomePage.HOST_NAME)
+                                        .with(HomePage.USER_ID, "12345")
+                                        .with(HomePage.GAME_ID, "10001")
+                                        .with(HomePage.USER_NAME, "jamgu")
+                                        .build(), 10)
+        }
     }
 
 }
@@ -169,19 +173,8 @@ registerGlobalInterceptor(object : IRouterInterceptor {
 ```kotlin
 
 KRouters.open(context, "uri", null, object : IRouterMonitor {
-    override fun beforeOpen(context: Context, uri: Uri): Boolean {
-        // intercept if return true, return false by default.
-        return super.beforeOpen(context, uri)
-    }
 
-    override fun afterOpen(context: Context, uri: Uri) {
-        super.afterOpen(context, uri)
-    }
-
-    override fun onError(context: Context, msg: String, e: Throwable?) {
-        super.onError(context, msg, e)
-    }
-})
+    })
 
 ```
 
