@@ -1,12 +1,12 @@
-#### [README-EN](https://github.com/jamgudev/KRouter/blob/master/README_EN.md)
+#### [README-CN](https://github.com/jamgudev/KRouter/blob/master/README.md)
 
-#### 最新版本
+#### Latest version
 
 | module  | krouter-core                                                 | krouter-compiler                                             | krouter-annotation                                           | krouter-plugin                                               |
 | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | version | [![Download](https://img.shields.io/badge/krouter--core-v1.0.6-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-core/1.0.6/aar) | [![Download](https://img.shields.io/badge/krouter--compiler-v1.0.5-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-compiler/1.0.5/jar) | [![Download](https://img.shields.io/badge/krouter--annotation-v1.0.2-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-annotation/1.0.2/jar) | [![as plugin](https://img.shields.io/badge/krouter--plugin-v1.0.6-brightgreen)](https://search.maven.org/artifact/io.github.jamgudev/krouter-plugin/1.0.6/jar) |
 
-# 特性
+# Features
 
 - 支持通过路由获取intent
 - 支持通过注解配置Activity跳转
@@ -15,9 +15,9 @@
 - 支持多模块项目
 - 支持增量编译，减小编译时间消耗
 
-# 快速开始
+# Quick Setup
 
-编辑你的**project's build.gradle**文件，然后添加如下classpath依赖.
+Edit your **project's build.gradle** file and add classpath below.
 
 ```groovy
 buildscript {
@@ -27,7 +27,7 @@ buildscript {
 }
 ```
 
-在你的**Application Module**模块引用KRouter插件。
+And apply krouter-plugin on your **application module**.
 
 ```groovy
 plugins {
@@ -35,11 +35,11 @@ plugins {
 }
 ```
 
-**多模块支持**
+**Multi-module support**
 
-如果你的项目是由多个模块组成的，并希望给你的某个子模块引用KRouter，你只需要在该模块的gradle文件中引用插件即可。
+If you project consists of multiple modules and you want to configure KRouter for one of them, apply krouter-plugin to your module will be enough.
 
-添加如下代码到你子模块的build.gradle文件中：
+Add code below to your module's build.gradle file.
 
 ```groovy
 plugins {
@@ -47,8 +47,7 @@ plugins {
 }
 ```
 
-添加完毕后，KRouter插件会自动为你的子模块添加所需的库依赖，
-插件会编辑子模块的build.gradle文件，并添加下面所示依赖库，自动为你引用最新版本的依赖库，所以你不需要自己添加库依赖。
+Krouter-plugin will automatically add dependencies for you. It will edit your Gradle file and add the following dependencies, which means you **don't** need to add them by yourself.
 
 ```
 implementation "io.github.jamgudev:krouter-core:1.0.6"
@@ -59,7 +58,7 @@ kapt "io.github.jamgudev:krouter-compiler:1.0.5"
 // annotationProcessor "io.github.jamgudev:krouter-compiler:1.0.5"
 ```
 
-如果你希望自己指定依赖库的版本，可以在你项目根目录的build.gradle文件中添加配置：
+If you want to configure the dependence version on your own, add below code to your **project's build.gradle**.
 
 ```groovy
 ext {
@@ -72,9 +71,9 @@ ext {
 }
 ```
 
-# 开始使用
+# Get Started
 
-**Activity路由**
+**Activity Router**
 
 ```kotlin
 @KRouter(value = [MainPage.HOST_NAME])
@@ -85,8 +84,6 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById(R.id.btn2Home).setOnClickListener {
-            // 通过 KRouter 打开标注为HomePage.HOST_NAME的 Activity，
-            // 并向该Activity传递一些参数。
             KRouters.openForResult(MainActivity.this, KRouterUriBuilder("helper")
                                         .appendAuthority(HomePage.HOST_NAME)
                                         .with(HomePage.USER_ID, "12345")
@@ -98,7 +95,6 @@ class MainActivity: AppCompatActivity() {
 
 }
 
-// 通过注解向KRouter注册一个Activity，并指定接收的参数以及参数类型
 @KRouter(
     [HOST_NAME], longParams = [USER_ID, GAME_ID],
     stringParams = [USER_NAME]
@@ -122,7 +118,6 @@ class HomePageActivity : AppCompatActivity() {
     }
 }
 
-// 可以定义一个Schemes类，对路由进行统一管理
 class Schemes {
     object HomePage {
         const val HOST_NAME = "home_page"
@@ -137,7 +132,7 @@ class Schemes {
 }
 ```
 
-**Method路由**
+**Method Router**
 
 ```kotlin
 class HomePageActivity : AppCompatActivity() {
@@ -155,13 +150,12 @@ class HomePageActivity : AppCompatActivity() {
 }
 
 
-// 调用注解为showHomePageActivity的方法，并向方法传递参数
 val result = MethodRouters.invoke("showHomePageActivity", MethodMapBuilder()
                 .with("aaa", "123456")
                 .build())
 ```
 
-**全局路由拦截器**
+**Global route interceptor**
 
 ```kotlin
 
@@ -174,13 +168,13 @@ registerGlobalInterceptor(object : IRouterInterceptor {
 
 ```
 
-**单次路由监听**
+**Single route listener**
 
 ```kotlin
 
 KRouters.open(context, "uri", null, object : IRouterMonitor {
 
-})
+    })
 
 ```
 
